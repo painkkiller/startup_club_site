@@ -3,7 +3,7 @@
 {% block content %}
 <div class="col-md-6 offset-md-3">
 <h1 class="text-center">Войти</h1>
-<form method="POST" action="/login">
+<form method="POST" action="/auth/login">
         {% csrf_token %}
         <div class="form-group">
           <label for="exampleInputEmail1">Логин</label>
