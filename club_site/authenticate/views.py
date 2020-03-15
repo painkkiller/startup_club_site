@@ -9,7 +9,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .forms import SignUpForm, EditProfileForm
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -48,7 +48,7 @@ def register_user(request):
             # user = authenticate(request, username=username, password=password)
             # login(request, user)
             current_site = get_current_site(request)
-            mail_subject = 'Activate your blog account.'
+            mail_subject = 'Активируйте ваш аккаунт в стартап клубе'
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -56,12 +56,16 @@ def register_user(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+            sender = "postmaster@startup-club.tech"
+            email = EmailMultiAlternatives(
+                        mail_subject, message, sender, [to_email]
             )
-            email.send()
-            messages.success(request, ('Проверьте свой почтовый ящик, чтобы активировать аккаунт'))
-            return redirect('home')
+            sent = email.send()
+            if sent == 1:
+                messages.success(request, ('Проверьте свой почтовый ящик, чтобы активировать аккаунт'))
+                return redirect('home')
+            else:
+                messages.error(request, ('Не удается отправить вам емайл, что то пошло не так'))
     else:
         form = SignUpForm()
     context = { 'form': form }
