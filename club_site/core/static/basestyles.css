@@ -1,0 +1,32 @@
+.usersnippet {
+    display: flex;
+}
+
+.snippet_info {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.gravataricon {
+    margin-top: 5px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.username {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.username:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.userrole {
+    color: whitesmoke;
+    font-size: 12px;
+    margin-bottom: 0;
+}

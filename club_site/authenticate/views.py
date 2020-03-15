@@ -75,7 +75,6 @@ def register_user(request):
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, request.user)
-        print('form', form.errors)
         if form.is_valid():
             form.save()
             messages.success(request, ('you edited profile'))
@@ -86,11 +85,9 @@ def edit_profile(request):
     return render(request, 'register.html', context)
 
 def activate_user(request, uidb64, token):
-    print('activate_user', request, 'uidb64', uidb64, 'token', token)
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
-        # print('activate_user', user, account_activation_token.check_token(user, token))
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
