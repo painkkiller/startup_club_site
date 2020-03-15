@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3">
+<h1 class="text-center">Участники</h1>
+{% for user in users %}
+    <p><a href="{% url 'get_user' id=user.id %}">{{user.username}}</a></p>
+{% endfor %}
+</div>
+{% endblock %}

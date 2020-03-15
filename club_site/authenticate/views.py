@@ -98,3 +98,19 @@ def activate_user(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+def get_users(request):
+    User = get_user_model()
+    if request.method == 'GET':
+        users = User.objects.all()
+        context = { 'users': users }
+        return render(request, 'userslist.html', context)
+
+def get_user(request, id):
+    print('get_user', id)
+    User = get_user_model()
+    if request.method == 'GET':
+        user = User.objects.get(pk=id)
+        context = { 'user': user }
+        return render(request, 'profile.html', context)
+    
