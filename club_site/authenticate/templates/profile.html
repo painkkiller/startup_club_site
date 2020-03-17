@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load avatar %}
 
 {% block content %}
 <div class="col-md-6 offset-md-3">
 <h1 class="text-center">{{user.username}}</h1>
+<img style="border-radius: 50%;" src="{{ user|gravatar:120 }}" />
 <p>{{ user.first_name }}</p>
 <p>{{ user.last_name }}</p>
 <p>{{ user.email }}</p>
+<p>Обо мне: {{ profile.about }}</p>
 </div>
 {% endblock %}

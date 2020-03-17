@@ -9,6 +9,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .forms import SignUpForm, EditProfileForm
+from .models import Profile
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth import get_user_model
 
@@ -111,6 +112,8 @@ def get_user(request, id):
     User = get_user_model()
     if request.method == 'GET':
         user = User.objects.get(pk=id)
-        context = { 'user': user }
+        profile = Profile.objects.get(user=id)
+        print('get_user 2', user, profile)
+        context = { 'user': user, 'profile': profile }
         return render(request, 'profile.html', context)
     
