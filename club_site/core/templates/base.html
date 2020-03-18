@@ -38,7 +38,7 @@
                           <div class="usersnippet">
                             <img class="gravataricon" src="{{ user|gravatar:35 }}" />
                             <div class="snippet_info">
-                              <a class="username" href="#">{{ user.username }}</a>
+                              <a class="username" href="{% url 'get_user' id=user.id %}">{{ user.username }}</a>
                               <p class="userrole">Участник</p>
                             </div>
                           </div>

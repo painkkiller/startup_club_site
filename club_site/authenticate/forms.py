@@ -10,7 +10,8 @@ class EditProfileForm(UserChangeForm):
     password =  forms.CharField(label="", help_text="<strong>Enter your First Name</strong>", max_length=100, widget=forms.TextInput(attrs={'type': 'hidden',}))
     class Meta:
         model = User
-        exclude = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        exclude = ('username', 'last_login', 'is_superuser', 'user_permissions', 'groups', 
+        'password1', 'password2', 'is_staff', 'is_active', 'date_joined')
 
 
 class SignUpForm(UserCreationForm):

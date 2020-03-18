@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load avatar %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-10 offset-md-1">
+    <div class="card">
+        <h5 class="card-header">{{ user.first_name }} {{ user.last_name }}</h5>
+        <div class="card-body">
+            <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:110 }}" />
+            <div style="margin-left: 135px">
+                <form method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                        <div class="alert alert-warning alert-dismissable" role="alert">
+                            <small><sup>x</sup></small>
+                            <p>form has errors...</p>
+                            {% for field in form %}
+                                {% if field.errors %}
+                                {{ field.errors }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

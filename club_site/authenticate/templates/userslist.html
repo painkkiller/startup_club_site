@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
+{% load avatar %}
 
 {% block content %}
-<div class="col-md-6 offset-md-3">
+<div class="col-md-10 offset-md-1">
 <h1 class="text-center">Участники</h1>
 {% for user in users %}
-    <p><a href="{% url 'get_user' id=user.id %}">{{user.username}}</a></p>
+    <div style="margin: 10px;" class="card">
+        <div class="card-header">
+            {{ user.first_name }} {{ user.last_name }}
+        </div>
+        <div class="card-body">
+            <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:70 }}" />
+            <div style="margin-left: 95px">
+                <h5 class="card-title">{{user.username}}</h5>
+                <a href="{% url 'get_user' id=user.id %}" class="btn btn-primary">Профиль</a>
+            </div>
+        </div>
+    </div>
 {% endfor %}
 </div>
 {% endblock %}

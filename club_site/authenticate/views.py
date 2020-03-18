@@ -73,17 +73,18 @@ def register_user(request):
     context = { 'form': form }
     return render(request, 'register.html', context)
 
-def edit_profile(request):
+def edit_profile(request, id):
+    print('edit_profile')
     if request.method == 'POST':
         form = EditProfileForm(request.POST, request.user)
         if form.is_valid():
             form.save()
             messages.success(request, ('you edited profile'))
-            return redirect('home')
+            return redirect('get_user', id=request.user.id)
     else:
         form = EditProfileForm()
-    context = { 'form': form }
-    return render(request, 'register.html', context)
+    context = { 'form': form, 'id': id }
+    return render(request, 'profileedit.html', context)
 
 def activate_user(request, uidb64, token):
     try:
@@ -113,7 +114,8 @@ def get_user(request, id):
     if request.method == 'GET':
         user = User.objects.get(pk=id)
         profile = Profile.objects.get(user=id)
-        print('get_user 2', user, profile)
-        context = { 'user': user, 'profile': profile }
+        can_edit = (request.user.id == id)
+        print('get_user 2', user, profile, can_edit)
+        context = { 'user': user, 'profile': profile, 'can_edit': can_edit }
         return render(request, 'profile.html', context)
     

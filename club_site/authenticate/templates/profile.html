@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% load avatar %}
+{% load static %}
 
 {% block content %}
-<div class="col-md-6 offset-md-3">
-<h1 class="text-center">{{user.username}}</h1>
-<img style="border-radius: 50%;" src="{{ user|gravatar:120 }}" />
-<p>{{ user.first_name }}</p>
-<p>{{ user.last_name }}</p>
-<p>{{ user.email }}</p>
-<p>Обо мне: {{ profile.about }}</p>
-</div>
+<div class="col-md-10 offset-md-1">
+    <div class="card">
+        <h5 class="card-header">{{ user.first_name }} {{ user.last_name }}
+          {% if can_edit %}
+          <a style="float: right;" href="{% url 'edit_user' id=user.id %}" class="btn btn-primary">
+            <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
+          </a>
+          {% endif %}
+        </h5>
+        <div class="card-body">
+          <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:110 }}" />
+            <div style="margin-left: 135px">
+                <h5 class="card-title">{{user.username}}</h5>
+                <p>{{ user.email }}</p>
+                <p>Обо мне: {{ profile.about }}</p>
+            </div>
+        </div>
+      </div>
 {% endblock %}
