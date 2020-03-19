@@ -15,7 +15,14 @@
         <div class="card-body">
           <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:110 }}" />
             <div style="margin-left: 135px">
-                <h5 class="card-title">{{user.username}}</h5>
+                <h5 style="margin-bottom: 0; font-size: bold" class="card-title">{{user.username}}</h5>
+                {% if user.is_staff %}
+                <span class="badge badge-danger">Администратор</span>
+                {% else %}
+                <span class="badge badge-success">Участник</span>
+                {% endif %}
+                <br/>
+                <br/>
                 <p>{{ user.email }}</p>
                 <p>Обо мне: {{ profile.about }}</p>
             </div>

@@ -39,7 +39,11 @@
                             <img class="gravataricon" src="{{ user|gravatar:35 }}" />
                             <div class="snippet_info">
                               <a class="username" href="{% url 'get_user' id=user.id %}">{{ user.username }}</a>
+                              {% if user.is_staff %}
+                              <p class="userrole">Администратор</p>
+                              {% else %}
                               <p class="userrole">Участник</p>
+                              {% endif %}
                             </div>
                           </div>
                         </li>
