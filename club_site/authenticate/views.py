@@ -8,7 +8,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from .forms import SignUpForm, EditProfileForm
+from .forms import SignUpForm, EditUserForm, EditProfileForm
 from .models import Profile
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth import get_user_model
@@ -76,14 +76,24 @@ def register_user(request):
 def edit_profile(request, id):
     print('edit_profile')
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, ('you edited profile'))
+        userForm = EditUserForm(request.POST, request.user)
+        profileForm = EditProfileForm(request.POST, request.user)
+        if userForm.is_valid() and profileForm.is_valid():
+            user = userForm.save(commit=False)
+            profile = profileForm.save(commit=False)
+            user.id = request.user.id
+            profile.id = request.user.id
+            profile.user = user
+            user.save(update_fields=('first_name', 'last_name'))
+            profile.save()
+            messages.success(request, ('Вы успешно отредактировали свой профиль'))
             return redirect('get_user', id=request.user.id)
     else:
-        form = EditProfileForm()
-    context = { 'form': form, 'id': id }
+        user = User.objects.get(pk=id)
+        userForm = EditUserForm(instance=user)
+        profile = Profile.objects.get(user=id)
+        profileForm = EditProfileForm(instance=profile)
+    context = { 'userForm': userForm, 'profileForm': profileForm }
     return render(request, 'profileedit.html', context)
 
 def activate_user(request, uidb64, token):

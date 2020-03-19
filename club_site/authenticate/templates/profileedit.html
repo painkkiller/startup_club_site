@@ -9,20 +9,26 @@
         <div class="card-body">
             <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:110 }}" />
             <div style="margin-left: 135px">
-                <form method="POST" action="{% url 'register' %}">
+                <form method="POST" action="{% url 'edit_user' id=user.id %}">
                         {% csrf_token %}
-                        {% if form.errors %}
+                        {% if userForm.errors or profileForm.errors %}
                         <div class="alert alert-warning alert-dismissable" role="alert">
                             <small><sup>x</sup></small>
                             <p>form has errors...</p>
-                            {% for field in form %}
+                            {% for field in userForm %}
                                 {% if field.errors %}
-                                {{ field.errors }}
+                                    {{ field.errors }}
+                                {% endif %}
+                            {% endfor %}
+                            {% for field in profileForm %}
+                                {% if field.errors %}
+                                    {{ field.errors }}
                                 {% endif %}
                             {% endfor %}
                         </div>
                         {% endif %}
-                        {{ form.as_p }}
+                        {{ userForm.as_p }}
+                        {{ profileForm.as_p }}
                         <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>

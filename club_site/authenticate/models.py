@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser
 
 from django.db.models.signals import post_save 
 from django.dispatch import receiver
+#from django.contrib.auth import get_user_model
+
+#User = get_user_model()
 
 class User(AbstractUser):
     """auth/login-related fields"""
@@ -11,11 +14,15 @@ class User(AbstractUser):
     # email (if used for login)
     # extra permissions
     # NOTE: before putting something here make sure it wouldn't be better in the profile model
+    #class Meta:
+        #model = User
+        #fields = ['username', 'email', 'password', 'first_name', 'last_name']
 
 class Profile(models.Model):
     """profile fields"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = models.CharField(max_length=500)
+    about = models.CharField(max_length=2000, blank=True)
+    telegram = models.CharField(max_length=25, blank=True)
     # Examples:
     # Display Name
     # Bios, descriptions, taglines
