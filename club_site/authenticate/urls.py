@@ -1,7 +1,10 @@
-from django.urls import path, re_path
+from django.urls import path, re_path, include
+
 from . import views
 
 urlpatterns = [
+   path('reset/', include('django.contrib.auth.urls')),
+
    path('login', views.login_user, name="login_user"),
    path('logout', views.logout_user, name="logout_user"),
    path('register', views.register_user, name='register'),

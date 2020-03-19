@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
@@ -128,4 +128,10 @@ def get_user(request, id):
         print('get_user 2', user, profile, can_edit)
         context = { 'user': user, 'profile': profile, 'can_edit': can_edit }
         return render(request, 'profile.html', context)
+
+def password_reset(request):
+    form = UserForgotPasswordForm(None, request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save(from_email='noreply@startup-club.tech')
     

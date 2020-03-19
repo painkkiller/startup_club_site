@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django import forms
 
 from django.contrib.auth import get_user_model
@@ -8,9 +8,14 @@ User = get_user_model()
 
 
 class EditUserForm(UserChangeForm):
-    # password =  forms.CharField(label="", max_length=100, widget=forms.PasswordInput(attrs={'type': 'hidden',}))
+    password = ReadOnlyPasswordHashField(label=(""),
+        help_text=(""))
     first_name =  forms.CharField(label="Имя", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control',}))
     last_name =  forms.CharField(label="Фамилия", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control',}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].widget.attrs['style'] = 'display: none'
 
     class Meta:
         model = User
@@ -28,9 +33,9 @@ class EditProfileForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Email'}))
-    first_name = forms.CharField(label="", help_text="<strong>Enter your First Name</strong>", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter First Name'}))
-    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Last Name'}))
+    email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите емайл'}))
+    first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}))
+    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}))
     
 
     class Meta:
@@ -41,12 +46,13 @@ class SignUpForm(UserCreationForm):
         super(SignUpForm, self).__init__(*args, **kwargs)
 
         self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['username'].widget.attrs['placeholder'] = 'Логин'
         self.fields['username'].label = ''
-        self.fields['username'].help_text = '<small> usermane </small>'
+        self.fields['username'].help_text = ''
         self.fields['password1'].widget.attrs['class'] = 'form-control'
-        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Пароль'
         self.fields['password1'].label = ''
         self.fields['password2'].widget.attrs['class'] = 'form-control'
-        self.fields['password2'].widget.attrs['placeholder'] = 'Enter Password again'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Введите пароль снова'
+        self.fields['password2'].help_text = ''
         self.fields['password2'].label = ''
