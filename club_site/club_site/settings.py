@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "anymail",
     'core',
     'authenticate'
 ]
@@ -128,6 +129,10 @@ AUTH_USER_MODEL = 'authenticate.User'
 STATIC_URL = '/static/'
 
 # mailgun integration
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = os.getenv("MAILGUN_ACCESS_KEY")
-MAILGUN_SERVER_NAME = os.getenv("MAILGUN_SERVER_NAME")
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.getenv("MAILGUN_ACCESS_KEY"),
+    "MAILGUN_SENDER_DOMAIN": 'startup-club.tech',
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = "postmaster@startup-club.tech"
+SERVER_EMAIL = "postmaster@startup-club.tech"
