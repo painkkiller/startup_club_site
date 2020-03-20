@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-6 offset-md-3">
+<h1 class="text-center">Добавление проекта</h1>
+<form method="POST" action="{% url 'project_edit' slug='new' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-warning alert-dismissable" role="alert">
+            <small><sup>x</sup></small>
+            <p>form has errors...</p>
+            {% for field in form %}
+                {% if field.errors %}
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Добавить</button>
+</form> 
+</div>
+{% endblock %}
