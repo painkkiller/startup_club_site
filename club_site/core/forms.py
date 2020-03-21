@@ -13,7 +13,8 @@ class EditProjectForm(forms.ModelForm):
     status = forms.ChoiceField(choices = PROJECT_STATUS_CHOICES, label="Стадия проекта", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
     founders = forms.ModelMultipleChoiceField(queryset = User.objects.all(), label="Основатели", widget=forms.SelectMultiple(attrs={'class': 'form-control',}), required=True)
     preza = forms.FileField(label="Презентация", help_text="<small>презентация вашего проекта (если есть)</small>",  widget=forms.ClearableFileInput(attrs={ 'class': 'form-control-file', 'multiple': False }), required=False)
+    video_pitch = forms.CharField(label="Видео", help_text="<small>Видеоссылка на YouTube питча вашего проекта или проморолик (если есть)</small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}), required=False)
 
     class Meta:
         model = Project
-        fields = ('title', 'description', 'slug', 'status', 'founders', 'site', 'preza')
+        fields = ('title', 'description', 'slug', 'status', 'founders', 'site', 'preza', 'video_pitch')

@@ -20,7 +20,10 @@
           <p>Сайт: <a href="{{ project.site }}">{{ project.site }}</a></p>
           {% endif %}
           {% if project.preza %}
-          <p><a href="{% get_media_prefix %}{{ project.preza }}">Презентация</a></p>
+          <p><img style="margin-right: 30px" src="{% static 'img/presentation.png' %}"/><a href="{% get_media_prefix %}{{ project.preza }}">Презентация</a></p>
+          {% endif %}
+          {% if project.video_pitch %}
+          <p><img style="margin-right: 30px" src="{% static 'img/youtube.png' %}"/><a href="{{ project.video_pitch }}">Видео</a></p>
           {% endif %}
           <div>
             <h5>Основатели:</h5>

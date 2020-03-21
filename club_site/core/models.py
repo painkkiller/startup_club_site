@@ -22,6 +22,7 @@ class Project(models.Model):
     status = models.CharField(max_length=25, choices=PROJECT_STATUS_CHOICES, default='Идея')
     site = models.URLField(max_length=255, null=True)
     preza = models.FileField(upload_to='projects/%Y/%m/', blank=True)
+    video_pitch = models.URLField(max_length=255, null=True)
 
     def __str__(self):
         return self.title
