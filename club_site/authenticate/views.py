@@ -10,8 +10,9 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .forms import SignUpForm, EditUserForm, EditProfileForm
 from .models import Profile
-from django.core.mail import EmailMultiAlternatives
+# from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth import get_user_model
+from core.mailer import mail_to_users
 
 User = get_user_model()
 
@@ -46,11 +47,8 @@ def register_user(request):
             user.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            # user = authenticate(request, username=username, password=password)
-            # login(request, user)
             current_site = get_current_site(request)
             mail_subject = 'Активируйте ваш аккаунт в стартап клубе'
-            # print('register_user.pk = ', user.pk, 'uid = ', force_text(urlsafe_base64_encode(force_bytes(user.pk))))
             message = render_to_string('emails/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -58,11 +56,7 @@ def register_user(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            sender = "postmaster@startup-club.tech"
-            email = EmailMultiAlternatives(
-                        mail_subject, message, sender, [to_email]
-            )
-            resp = email.send()
+            resp = mail_to_users(mail_subject, message, [to_email])
             if resp == 1:
                 messages.success(request, ('Проверьте свой почтовый ящик, чтобы активировать аккаунт'))
                 return redirect('home')
@@ -74,7 +68,6 @@ def register_user(request):
     return render(request, 'register.html', context)
 
 def edit_profile(request, id):
-    print('edit_profile')
     if request.method == 'POST':
         userForm = EditUserForm(request.POST, request.user)
         profileForm = EditProfileForm(request.POST, request.user)
@@ -106,7 +99,6 @@ def activate_user(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        # return redirect('home')
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
@@ -119,19 +111,12 @@ def get_users(request):
         return render(request, 'userslist.html', context)
 
 def get_user(request, id):
-    print('get_user', id)
     User = get_user_model()
     if request.method == 'GET':
         user = User.objects.get(pk=id)
         profile = Profile.objects.get(user=id)
         can_edit = (request.user.id == id)
-        print('get_user 2', user, profile, can_edit)
         context = { 'user': user, 'profile': profile, 'can_edit': can_edit }
         return render(request, 'profile.html', context)
 
-def password_reset(request):
-    form = UserForgotPasswordForm(None, request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save(from_email='noreply@startup-club.tech')
     
