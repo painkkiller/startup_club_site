@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="col-md-10 offset-md-1">
     <div class="card">
         <h5 class="card-header">{{ project.title }}
+          {% if can_edit %}
+          <a style="float: right;" href="{% url 'project_edit' slug=project.slug %}" class="btn btn-primary">
+            <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
+          </a>
+          {% endif %}
         </h5>
         <div class="card-body">
+          <small>создан: {{ project.created }}</small><br/>
+          <small>обновлен: {{ project.updated }}</small>
           <p>{{ project.description }}</p>
+          <p>Статус проекта: {{ project.status }}</p>
+          {% if project.site %}
+          <p>Сайт: <a href="{{ project.site }}">{{ project.site }}</a></p>
+          {% endif %}
+          <div>
+            <h5>Основатели:</h5>
+            {% for founder in project.founders.all %}
+            <a href="{% url 'get_user' id=founder.id %}">{{ founder.username }}</a>
+            {% endfor %}
+          </div>
         </div>
       </div>
 {% endblock %}

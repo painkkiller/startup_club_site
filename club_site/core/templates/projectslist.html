@@ -2,18 +2,19 @@
 
 {% block content %}
 <div class="col-md-10 offset-md-1">
-    <h1>Проекты
+    <h1 style="margin-bottom: 40px">Проекты
         <a style="float: right;" href="{% url 'project_edit' slug='new' %}" class="btn btn-primary">
             + Добавить проект
         </a>
     </h1>
     {% for project in projects %}
-        <div style="margin: 10px;" class="card">
+        <div style="margin-top: 10px;margin-bottom: 10px" class="card">
             <div class="card-header">
-                {{ project.title }} 
+                <h5>{{ project.title }}</h5>
             </div>
             <div class="card-body">
                 {{ project.description }}
+                <br/>
                 <br/>
                 <a href="{% url 'project_details' slug=project.slug %}" class="btn btn-primary">Подробности</a>
             </div>

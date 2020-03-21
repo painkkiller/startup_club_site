@@ -6,9 +6,9 @@ from django.urls import reverse
 User = get_user_model()
 
 PROJECT_STATUS_CHOICES = (
-    ('idea', 'Идея'),
-    ('development', 'Разработка прототипа'),
-    ('scale', 'Маштабирование'),
+    ('Идея', 'Идея'),
+    ('Разработка прототипа', 'Разработка прототипа'),
+    ('Маштабирование', 'Маштабирование'),
 )
 
 
@@ -20,6 +20,7 @@ class Project(models.Model):
     updated = models.DateTimeField(auto_now=True)
     founders = models.ManyToManyField(User)
     status = models.CharField(max_length=25, choices=PROJECT_STATUS_CHOICES, default='idea')
+    site = models.URLField(max_length=255, null=True)
 
     def __str__(self):
         return self.title
