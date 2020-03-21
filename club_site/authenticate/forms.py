@@ -24,8 +24,8 @@ class EditUserForm(UserChangeForm):
         'password1', 'password2', 'password', 'is_staff', 'is_active', 'date_joined', 'email')
 
 class EditProfileForm(forms.ModelForm):
-    about =  forms.CharField(label="Обо мне", help_text="<small>Расскажите о себе и своих компетенциях</small>", max_length=2000, widget=forms.Textarea(attrs={'class': 'form-control',}))
-    telegram = forms.CharField(label="Телеграм", help_text="<small>Ваш логин в телеграме</small>", max_length=25, widget=forms.TextInput(attrs={'class': 'form-control',}))
+    about =  forms.CharField(label="Обо мне", help_text="<small>Расскажите о себе и своих компетенциях</small>", max_length=2000, widget=forms.Textarea(attrs={'class': 'form-control',}), required=False)
+    telegram = forms.CharField(label="Телеграм", help_text="<small>Ваш логин в телеграме</small>", max_length=25, widget=forms.TextInput(attrs={'class': 'form-control',}), required=False)
 
     class Meta:
         model = Profile

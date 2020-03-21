@@ -4,7 +4,7 @@
 {% block content %}
 <div class="col-md-6 offset-md-3">
 <h1 class="text-center">Добавление проекта</h1>
-<form method="POST" action="{% url 'project_edit' slug=slug %}">
+<form method="POST" action="{% url 'project_edit' slug=slug %}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
         <div class="alert alert-warning alert-dismissable" role="alert">

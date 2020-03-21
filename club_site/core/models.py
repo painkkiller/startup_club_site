@@ -19,8 +19,9 @@ class Project(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     founders = models.ManyToManyField(User)
-    status = models.CharField(max_length=25, choices=PROJECT_STATUS_CHOICES, default='idea')
+    status = models.CharField(max_length=25, choices=PROJECT_STATUS_CHOICES, default='Идея')
     site = models.URLField(max_length=255, null=True)
+    preza = models.FileField(upload_to='projects/%Y/%m/', blank=True)
 
     def __str__(self):
         return self.title

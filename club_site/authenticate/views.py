@@ -114,7 +114,7 @@ def activate_user(request, uidb64, token):
 def get_users(request):
     User = get_user_model()
     if request.method == 'GET':
-        users = User.objects.all()
+        users = User.objects.filter(is_active=True)
         context = { 'users': users }
         return render(request, 'userslist.html', context)
 

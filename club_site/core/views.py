@@ -26,10 +26,10 @@ def project_edit(request, slug):
     print('project_edit', slug)
     if request.method == 'POST':
         if slug == 'new':
-            projectForm = EditProjectForm(request.POST, request.user)
+            projectForm = EditProjectForm(data=request.POST, files=request.FILES)
         else:
             project = Project.objects.get(slug=slug)
-            projectForm = EditProjectForm(request.POST, instance=project)
+            projectForm = EditProjectForm(data=request.POST, files=request.FILES, instance=project)
         if projectForm.is_valid():
             print('project_edit0')
             project = projectForm.save()

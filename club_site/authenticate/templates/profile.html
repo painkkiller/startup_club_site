@@ -24,8 +24,12 @@
                 <br/>
                 <br/>
                 <p>{{ user.email }}</p>
-                <p>Обо мне: {{ profile.about }}</p>
+                {% if profile.about %}
+                <p>{{ profile.about }}</p>
+                {% endif %}
+                {% if profile.telegram %}
                 <p><img style="width: 35px; height: 35px" src="{% static 'img/telegram.png' %}"/> @{{ profile.telegram }}</p>
+                {% endif %}
             </div>
         </div>
       </div>

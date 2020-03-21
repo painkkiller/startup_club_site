@@ -19,6 +19,9 @@
           {% if project.site %}
           <p>Сайт: <a href="{{ project.site }}">{{ project.site }}</a></p>
           {% endif %}
+          {% if project.preza %}
+          <p><a href="{% get_media_prefix %}{{ project.preza }}">Презентация</a></p>
+          {% endif %}
           <div>
             <h5>Основатели:</h5>
             {% for founder in project.founders.all %}
