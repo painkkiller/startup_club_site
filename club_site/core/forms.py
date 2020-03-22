@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, PROJECT_STATUS_CHOICES
+from .models import Project, Vacancy, PROJECT_STATUS_CHOICES, VACANCY_TYPE_CHOICES, SPECIALTIES_TYPES
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -18,3 +18,19 @@ class EditProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('title', 'description', 'slug', 'status', 'founders', 'site', 'preza', 'video_pitch')
+
+class EditVacancyForm(forms.ModelForm):
+    title =  forms.CharField(label="Название вакансии", help_text="<small></small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}))
+    body = forms.CharField(label="Описание вакансии", help_text="<small>краткое описание вакансии, не больше 1000 знаков</small>", max_length=1000, widget=forms.Textarea(attrs={'class': 'form-control',}))
+    specialty = forms.ChoiceField(choices = SPECIALTIES_TYPES, label="Специальность", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
+    vacancy_type = forms.ChoiceField(choices = VACANCY_TYPE_CHOICES, label="Тип вакансии", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
+
+    def __init__(self, user, *args, **kwargs):
+        super(EditVacancyForm, self).__init__(*args, **kwargs)
+        # print('--init--', [(project.id, project.title) for project in User.objects.get(pk=5).project_set.all()])
+        self.fields['project'] = forms.ModelChoiceField(queryset=User.objects.get(pk=user.id).project_set.all(), empty_label=None, to_field_name="title", label="Проект", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
+        self.fields['author'] = forms.ModelChoiceField(queryset=User.objects.filter(pk = user.id), initial= User.objects.get(pk = user.id), to_field_name="username", label="Автор", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
+
+    class Meta:
+        model = Vacancy
+        fields = ('title', 'body', 'project', 'specialty', 'author', 'vacancy_type')

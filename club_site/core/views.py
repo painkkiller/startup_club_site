@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from .forms import EditProjectForm
+from .forms import EditProjectForm, EditVacancyForm
 from django.contrib.auth.decorators import login_required
-from .models import Project
+from .models import Project, Vacancy
 from .mailer import mail_to_users
 
 
@@ -53,6 +53,45 @@ def project_edit(request, slug):
             form = EditProjectForm(instance=project)
         context = { 'form': form, 'slug': slug }
         return render(request, 'projectedit.html', context)
+
+def vacancies(request):
+    vacancies = Vacancy.objects.all()
+    context = { 'vacancies': vacancies }
+    return render(request, 'vacancieslist.html', context)
+
+def vacancy_details(request, id):
+    vacancy = Vacancy.objects.get(pk=id)
+    can_edit = (request.user.id == vacancy.author.id)
+    context = { 'vacancy': vacancy, 'can_edit': can_edit }
+    return render(request, 'vacancydetails.html', context)
+
+def vacancy_edit(request, id):
+    print('vacancy_edit', id)
+    if request.method == 'POST':
+        print('vacancy_edit0', id, id == 0)
+        if id == 0:
+           form = EditVacancyForm(data=request.POST, user=request.user)
+        else:
+            vacancy = Vacancy.objects.get(pk=id)
+            print('vacancy_edit1', vacancy)
+            form = EditVacancyForm(data=request.POST, user=request.user, instance=vacancy)
+        if form.is_valid():
+            vacancy = form.save()
+            vacancy.save()
+            messages.success(request, ('Вы успешно отредактировали вакансию'))
+            return redirect('vacancy_details', id=vacancy.id)
+        else:
+            messages.error(request, ('Какие то ошибки не дают сохранить вакансию'))
+            context = { 'form': form, 'id': id }
+            return render(request, 'vacancyedit.html', context)
+    else:
+        if id == 0:
+            form = EditVacancyForm(user=request.user)
+        else:
+            vacancy = Vacancy.objects.get(pk=id)
+            form = EditVacancyForm(user=request.user, instance=vacancy)
+    context = { 'form': form, 'id': id }
+    return render(request, 'vacancyedit.html', context)
 
 def mail_creation_helper(is_new, user, project, domain):
     if is_new:

@@ -11,6 +11,18 @@ PROJECT_STATUS_CHOICES = (
     ('Маштабирование', 'Маштабирование'),
 )
 
+VACANCY_TYPE_CHOICES = (
+    ('Доля в проекте', 'Доля в проекте'),
+    ('Зарплата', 'Зарплата'),
+    ('Сдельная оплата', 'Сдельная оплата'),
+)
+
+SPECIALTIES_TYPES = (
+    ('Программист', 'Программист'),
+    ('Маркетолог', 'Маркетолог'),
+    ('Менеджер', 'Менеджер'),
+    ('Дизайнер', 'Дизайнер'),
+)
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
@@ -37,15 +49,37 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10,choices=STATUS_CHOICES,default='draft')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    
 
     class Meta:
         ordering = ('-publish',)
+
+        def __str__(self):
+            return self.title
+
+
+class Vacancy(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
+    title = models.CharField(max_length=250)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    specialty = models.CharField(max_length=25, choices=SPECIALTIES_TYPES, default='Менеджер')
+    vacancy_type = models.CharField(max_length=25, choices=VACANCY_TYPE_CHOICES, default='Зарплата')
+
+    class Meta:
+        ordering = ('-created',)
 
         def __str__(self):
             return self.title

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-10 offset-md-1">
+    <h1 style="margin-bottom: 40px">Вакансии
+        <a style="float: right;" href="{% url 'vacancy_edit' id='0' %}" class="btn btn-primary">
+            + Добавить вакансию
+        </a>
+    </h1>
+    {% for vacancy in vacancies %}
+        <div style="margin-top: 10px;margin-bottom: 10px" class="card">
+            <div class="card-header">
+                <h5>{{ vacancy.title }}</h5>
+            </div>
+            <div class="card-body">
+                {{ vacancy.body }}
+                <br/>
+                <br/>
+                <a href="{% url 'vacancy_details' id=vacancy.id %}" class="btn btn-primary">Подробности</a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
