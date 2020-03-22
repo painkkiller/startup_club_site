@@ -22,7 +22,8 @@
                 <span class="badge badge-success">Участник</span>
                 {% endif %}
                 <br/>
-                <br/>
+                <p><small>Присоединился: {{ user.date_joined }}</small><br/>
+                <small>Последний раз заходил: {{ user.last_login }}</small></p>
                 <p>{{ user.email }}</p>
                 {% if profile.about %}
                 <p>{{ profile.about }}</p>

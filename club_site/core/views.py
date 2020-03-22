@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from .forms import EditProjectForm
+from django.contrib.auth.decorators import login_required
 from .models import Project
 from .mailer import mail_to_users
 
@@ -24,6 +25,7 @@ def project_details(request, slug):
     context = { 'project': project, 'can_edit': can_edit }
     return render(request, 'projectdetails.html', context)
 
+@login_required
 def project_edit(request, slug):
     if request.method == 'POST':
         if slug == 'new':

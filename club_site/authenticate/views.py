@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from .forms import SignUpForm, EditUserForm, EditProfileForm
 from .models import Profile
-# from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from core.mailer import mail_to_users
 
@@ -67,6 +67,7 @@ def register_user(request):
     context = { 'form': form }
     return render(request, 'register.html', context)
 
+@login_required
 def edit_profile(request, id):
     if request.method == 'POST':
         userForm = EditUserForm(request.POST, request.user)
