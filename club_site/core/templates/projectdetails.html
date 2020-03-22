@@ -31,6 +31,14 @@
             <a href="{% url 'get_user' id=founder.id %}">{{ founder.username }}</a>
             {% endfor %}
           </div>
+          {% if project.vacancies.all %}
+          <div>
+            <h5>Вакансии</h5>
+            {% for vac in project.vacancies.all %}
+            <a href="{% url 'vacancy_details' id=vac.id %}">{{ vac.title }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
       </div>
 {% endblock %}

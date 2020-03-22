@@ -70,8 +70,8 @@ class Vacancy(models.Model):
         ('published', 'Published'),
     )
     title = models.CharField(max_length=250)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vacancies')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='vacancies')
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
