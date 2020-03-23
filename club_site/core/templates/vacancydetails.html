@@ -6,9 +6,14 @@
     <div class="card">
         <h5 class="card-header">{{ vacancy.title }}
           {% if can_edit %}
-          <a style="float: right;" href="{% url 'vacancy_edit' id=vacancy.id %}" class="btn btn-primary">
-            <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
-          </a>
+          <div style="float: right;" class="btn-toolbar">
+            <a href="{% url 'vacancy_edit' id=vacancy.id %}" class="btn btn-primary btn-md mr-3">
+              <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
+            </a>  
+            <a href="{% url 'vacancy_delete' id=vacancy.id %}" class="btn btn-danger btn-md">
+              <img  style="color: white" src="{% static 'img/delete.png' %}"/>
+            </a>
+          </div>
           {% endif %}
         </h5>
         <div class="card-body">

@@ -93,6 +93,14 @@ def vacancy_edit(request, id):
     context = { 'form': form, 'id': id }
     return render(request, 'vacancyedit.html', context)
 
+@login_required
+def vacancy_delete(request, id):
+    vacancy = Vacancy.objects.get(pk=id)
+    if vacancy.author.id == request.user.id:
+        vacancy.delete()
+        messages.success(request, ('Вы удалили вакансию'))
+        return redirect('vacancies')
+
 def mail_creation_helper(is_new, user, project, domain):
     if is_new:
         subject_mail = 'Ваш проект создан'
