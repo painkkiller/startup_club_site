@@ -30,3 +30,7 @@
     font-size: 12px;
     margin-bottom: 0;
 }
+
+#id_honeypot {
+    display: none;
+}

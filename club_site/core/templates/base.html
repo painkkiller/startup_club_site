@@ -19,16 +19,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                    <a style="{% if request.path == '/' %} color: lightgray; {% endif %}" class="nav-link" href="{% url 'home' %}">Главная</a>
+                    <a style="{% if request.path == '/' %} color: gray; {% endif %}" class="nav-link" href="{% url 'home' %}">Главная</a>
                     </li>
                     <li class="nav-item active">
-                        <a style="{% if request.path == '/auth/users/' %} color: lightgray; {% endif %}" class="nav-link" href="{% url 'get_users' %}">Участники<span class="sr-only">(current)</span></a>
+                        <a style="{% if request.path == '/auth/users/' %} color: gray; {% endif %}" class="nav-link" href="{% url 'get_users' %}">Участники<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a style="{% if request.path == '/projects/' %} color: lightgray; {% endif %}" class="nav-link" href="{% url 'projects' %}">Проекты<span class="sr-only">(current)</span></a>
+                        <a style="{% if request.path == '/projects/' %} color: gray; {% endif %}" class="nav-link" href="{% url 'projects' %}">Проекты<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                      <a style="{% if request.path == '/vacancies/' %} color: lightgray; {% endif %}" class="nav-link" href="{% url 'vacancies' %}">Вакансии<span class="sr-only">(current)</span></a>
+                      <a style="{% if request.path == '/vacancies/' %} color: gray; {% endif %}" class="nav-link" href="{% url 'vacancies' %}">Вакансии<span class="sr-only">(current)</span></a>
                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">Полезное<span class="sr-only">(current)</span></a>

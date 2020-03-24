@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load comments %}
+
 
 {% block content %}
 <div class="col-md-10 offset-md-1">
@@ -16,6 +19,8 @@
                 {{ project.description }}
                 <br/>
                 <br/>
+                {% get_comment_count for project as comment_count %}
+                <p><img src="{% static 'img/comments.svg' %}"/> {{ comment_count }}</p>
                 <a href="{% url 'project_details' slug=project.slug %}" class="btn btn-primary">Подробности</a>
             </div>
         </div>

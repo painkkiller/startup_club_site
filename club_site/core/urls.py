@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="home"),
+    path('comments/', include('django_comments.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('projects/', views.projects, name="projects"),
     path('projects/<slug:slug>/', views.project_details, name="project_details"),
