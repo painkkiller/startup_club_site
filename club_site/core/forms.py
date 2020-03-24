@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Vacancy, PROJECT_STATUS_CHOICES, VACANCY_TYPE_CHOICES, SPECIALTIES_TYPES
+from .models import Project, Vacancy, ProjectComment, PROJECT_STATUS_CHOICES, VACANCY_TYPE_CHOICES, SPECIALTIES_TYPES
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -18,6 +18,13 @@ class EditProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('title', 'description', 'slug', 'status', 'founders', 'site', 'preza', 'video_pitch')
+
+""" class EditProjectCommentForm(forms.ModelForm):
+    description = forms.CharField(label="", help_text="", max_length=1000, widget=forms.Textarea(attrs={'class': 'form-control',}))
+
+    class Meta:
+        model = ProjectComment
+        fields = ('title', 'description', 'slug', 'status', 'founders', 'site', 'preza', 'video_pitch') """
 
 class EditVacancyForm(forms.ModelForm):
     title =  forms.CharField(label="Название вакансии", help_text="<small></small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}))

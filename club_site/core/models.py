@@ -42,6 +42,20 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('project_detail', kwargs={'slug': self.slug})
 
+""" class ProjectComment(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='comments')
+    author =  models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    is_deleted = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created']
+
+    def __str__(self):
+        return 'Comment {}'.format(self.body) """
+
 class Post(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
