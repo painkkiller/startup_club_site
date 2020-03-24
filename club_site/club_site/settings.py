@@ -143,6 +143,8 @@ STATIC_ROOT ='/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+COMMENTS_APP = 'core'
+
 # mailgun integration
 ANYMAIL = {
     "MAILGUN_API_KEY": os.getenv("MAILGUN_ACCESS_KEY"),

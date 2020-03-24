@@ -25,7 +25,11 @@ class EditProjectForm(forms.ModelForm):
         fields = ('title', 'description', 'slug', 'status', 'founders', 'site', 'preza', 'video_pitch')
 
 class ProjectCommentForm(CommentForm):
-    comment = forms.CharField(label="", help_text="", max_length=3000, widget=forms.Textarea(attrs={'class': 'form-control' }))
+    #comment = forms.CharField(label="", help_text="", max_length=3000, widget=forms.Textarea(attrs={'class': 'form-control' }))
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectCommentForm, self).__init__(*args, **kwargs)
+        self.fields['comment'].widget = forms.Textarea(attrs={'rows': 4, 'class': 'form-control'})
 
 
 
