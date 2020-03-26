@@ -2,6 +2,12 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.dispatch import receiver
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django_comments.models import Comment
+from django_comments.signals import comment_was_posted
+from .mailer import mail_to_users
 
 User = get_user_model()
 
@@ -97,3 +103,23 @@ class Vacancy(models.Model):
 
         def __str__(self):
             return self.title
+
+
+@receiver(comment_was_posted, sender=Comment)
+def notify_about_comment(sender, **kwargs):
+    comment = kwargs.get('comment')
+    project = Project.objects.get(pk=comment.content_object.id)
+    subject_mail = 'Ваш проект прокомментировали'
+    emails = [founder.email for founder in project.founders.all()]
+    current_site = get_current_site(kwargs.get('request'))
+    html_message = render_to_string('emails/commentedproject.html', {
+        'domain': current_site.domain,
+        'project': project,
+        'comment': comment, 
+    })
+    txt_message = render_to_string('emails/commentedproject.txt', {
+        'domain': current_site.domain,
+        'project': project,
+        'comment': comment,
+    })
+    mail_to_users(subject_mail, html_message, txt_message, emails)   

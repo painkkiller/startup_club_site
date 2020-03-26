@@ -109,7 +109,7 @@ def mail_creation_helper(is_new, user, project, domain):
             'domain': domain,
             'project': project,
         })
-        txt_message = render_to_string('emails/addedtoproject.html', {
+        txt_message = render_to_string('emails/addedtoproject.txt', {
             'user': user,
             'domain': domain,
             'project': project,
