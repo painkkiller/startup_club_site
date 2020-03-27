@@ -31,6 +31,14 @@
                 {% if profile.telegram %}
                 <p><img style="width: 35px; height: 35px" src="{% static 'img/telegram.png' %}"/> @{{ profile.telegram }}</p>
                 {% endif %}
+                {% with user.project_set.all as projects  %}
+                {% if projects %}
+                <h6>Проекты в которых участвует:</h6>
+                {%for pr in projects %}
+                <a href="{% url 'project_details' slug=pr.slug %}">{{ pr.title }}</a>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
             </div>
         </div>
       </div>
