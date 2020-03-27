@@ -56,7 +56,7 @@ def register_user(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            resp = mail_to_users(mail_subject, message, [to_email])
+            resp = mail_to_users(mail_subject, html_content=message, txt_content=message, mails=[to_email])
             if resp == 1:
                 messages.success(request, ('Проверьте свой почтовый ящик, чтобы активировать аккаунт'))
                 return redirect('home')

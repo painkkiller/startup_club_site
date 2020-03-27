@@ -1,7 +1,7 @@
 {% extends 'emails/baseemail.html' %}
 {% block content %}
 {% autoescape off %}
-Ваш проект http://{{ domain }}{% url 'project_details' slug=project.slug %} прокомментировали.
+Ваш проект http://{{ domain }}{% url 'project_details' slug=project.slug %} прокомментировали.<br/>
 Текст комментария:<br/>
 {{ comment }}
 {% endautoescape %}

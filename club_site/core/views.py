@@ -6,6 +6,7 @@ from .forms import EditProjectForm, EditVacancyForm
 from django.contrib.auth.decorators import login_required
 from .models import Project, Vacancy
 from .mailer import mail_to_users
+from django.utils.translation import activate
 
 
 
@@ -18,6 +19,7 @@ def projects(request):
     return render(request, 'projectslist.html', context)
 
 def project_details(request, slug):
+    activate('ru-RU')
     project = Project.objects.get(slug=slug)
     can_edit = False
     if request.user in project.founders.all():
