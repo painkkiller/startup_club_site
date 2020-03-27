@@ -48,7 +48,7 @@
           {% endwith %}
           <br/>
           <h5>Рейтинг</h5>
-          {% ratings project %}
+          {% ratings project template_name='star_ratings/big_widget.html' %}
         </div>
       </div>
       {% if user.is_authenticated %}

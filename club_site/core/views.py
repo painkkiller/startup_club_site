@@ -14,7 +14,8 @@ def home(request):
     return render(request, 'index.html')
 
 def projects(request):
-    projects = Project.objects.all()
+    #projects = Project.objects.all()
+    projects = Project.objects.filter(ratings__isnull=False).order_by('-ratings__average')
     context = { 'projects': projects }
     return render(request, 'projectslist.html', context)
 

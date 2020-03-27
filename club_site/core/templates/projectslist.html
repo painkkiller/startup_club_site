@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load comments %}
+{% load ratings %}
 
 
 {% block content %}
@@ -21,6 +22,7 @@
                 <br/>
                 {% get_comment_count for project as comment_count %}
                 <p><img src="{% static 'img/comments.svg' %}"/> {{ comment_count }}</p>
+                <p>{% ratings project template_name='star_ratings/small_widget.html' read_only='True' %}</p>
                 <a href="{% url 'project_details' slug=project.slug %}" class="btn btn-primary">Подробности</a>
             </div>
         </div>

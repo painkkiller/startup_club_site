@@ -7,6 +7,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django_comments.models import Comment
 from django_comments.signals import comment_was_posted
+from django.contrib.contenttypes.fields import GenericRelation
+from star_ratings.models import Rating
 from .mailer import mail_to_users
 
 User = get_user_model()
@@ -41,12 +43,15 @@ class Project(models.Model):
     site = models.URLField(max_length=255, null=True)
     preza = models.FileField(upload_to='projects/%Y/%m/', blank=True)
     video_pitch = models.URLField(max_length=255, null=True)
+    ratings = GenericRelation(Rating, related_query_name='projects')
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('project_detail', kwargs={'slug': self.slug})
+
+
 
 """ class ProjectComment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='comments')
