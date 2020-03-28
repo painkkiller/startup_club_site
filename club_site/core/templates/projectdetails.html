@@ -3,6 +3,7 @@
 {% load avatar %}
 {% load comments %}
 {% load ratings %}
+{% load el_pagination_tags %}
 
 {% block cssfiles %}
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
@@ -86,6 +87,7 @@
             <p></p>
           {% endif %}
       {% get_comment_list for project as comment_list %}
+      {% paginate comment_list %}
       {% for comment in comment_list %}
       <div style="margin-top: 5px;">
         <div style="margin-top: 5px; margin-bottom: 5px;" class="card">
@@ -106,7 +108,8 @@
             </div>
           </div>
         </div>
-         {% endfor %}
+        {% endfor %}
+        {% show_pages %}
       </div>
       <!-- comments -->
      <!--  <div style="margin-top: 5px;">

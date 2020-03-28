@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'social_django',
     'django_extensions',
     'django_comments',
-    'star_ratings'
+    'star_ratings',
+    'el_pagination'
 ]
 
 MIDDLEWARE = [
