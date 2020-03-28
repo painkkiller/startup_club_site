@@ -4,6 +4,9 @@
 {% load comments %}
 {% load ratings %}
 
+{% block cssfiles %}
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="col-md-10 offset-md-1">
@@ -134,4 +137,8 @@
         </div>
       </div>
     </div> -->
+{% endblock %}
+
+{% block jsfiles %}
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 {% endblock %}
