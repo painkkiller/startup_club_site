@@ -5,33 +5,33 @@
 {% block content %}
 <div class="col-md-10 offset-md-1">
     <div class="card">
-        <h5 class="card-header">{{ user.first_name }} {{ user.last_name }}
+        <h5 class="card-header">{{ p_user.first_name }} {{ p_user.last_name }}
           {% if can_edit %}
-          <a style="float: right;" href="{% url 'edit_user' id=user.id %}" class="btn btn-primary">
+          <a style="float: right;" href="{% url 'edit_user' id=p_user.id %}" class="btn btn-primary">
             <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
           </a>
           {% endif %}
         </h5>
         <div class="card-body">
-          <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:110 }}" />
+          <img style="border-radius: 50%;float: left;" src="{{ p_user|gravatar:110 }}" />
             <div style="margin-left: 135px">
-                <h5 style="margin-bottom: 0; font-size: bold" class="card-title">{{user.username}}</h5>
-                {% if user.is_staff %}
+                <h5 style="margin-bottom: 0; font-size: bold" class="card-title">{{p_user.username}}</h5>
+                {% if p_user.is_staff %}
                 <span class="badge badge-danger">Администратор</span>
                 {% else %}
                 <span class="badge badge-success">Участник</span>
                 {% endif %}
                 <br/>
-                <p><small>Присоединился: {{ user.date_joined }}</small><br/>
-                <small>Последний раз заходил: {{ user.last_login }}</small></p>
-                <p>{{ user.email }}</p>
+                <p><small>Присоединился: {{ p_user.date_joined }}</small><br/>
+                <small>Последний раз заходил: {{ p_user.last_login }}</small></p>
+                <p>{{ p_user.email }}</p>
                 {% if profile.about %}
                 <p>{{ profile.about }}</p>
                 {% endif %}
                 {% if profile.telegram %}
                 <p><img style="width: 35px; height: 35px" src="{% static 'img/telegram.png' %}"/> @{{ profile.telegram }}</p>
                 {% endif %}
-                {% with user.project_set.all as projects  %}
+                {% with p_user.project_set.all as projects  %}
                 {% if projects %}
                 <h6>Проекты в которых участвует:</h6>
                 {%for pr in projects %}

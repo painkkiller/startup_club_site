@@ -1,0 +1,28 @@
+{% load el_pagination_tags %}
+{% load static %}
+{% load avatar %}
+
+{% paginate users %}
+{% for user in users %}
+    <div style="margin: 10px;" class="card">
+        <div class="card-header">
+            {{ user.first_name }} {{ user.last_name }} 
+        </div>
+        <div class="card-body">
+            <img style="border-radius: 50%;float: left;" src="{{ user|gravatar:70 }}" />
+            <div style="margin-left: 95px">
+                <h5 style="margin-bottom: 0" class="card-title">{{user.username}}</h5>
+                {% if user.is_staff %}
+                <span class="badge badge-danger">Администратор</span>
+                {% else %}
+                <span class="badge badge-success">Участник</span>
+                {% endif %}
+                <br/>
+                <br/>
+                <a href="{% url 'get_user' id=user.id %}" class="btn btn-primary">Профиль</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% show_more %}

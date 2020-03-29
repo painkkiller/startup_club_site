@@ -41,6 +41,7 @@ def project_edit(request, slug):
             project.founders.add(request.user)
             project.save()
             current_site = get_current_site(request)
+            print(current_site, current_site.domain)
             mail_creation_helper(slug == 'new', request.user, project, current_site.domain)
             messages.success(request, ('Вы успешно отредактировали свой проект'))
             return redirect('project_details', slug=project.slug)

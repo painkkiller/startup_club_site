@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load comments %}
-{% load ratings %}
+{% load el_pagination_tags %}
+
 
 {% block cssfiles %}
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
@@ -9,29 +9,19 @@
 
 {% block content %}
 <div class="col-md-10 offset-md-1">
-    <h1 style="margin-bottom: 40px">Проекты
+    <h1 style="margin-bottom: 40px">Проекты <span style="color: gray; font-size: 2rem;">{{ projects.count }}</span>
         <a style="float: right;" href="{% url 'project_edit' slug='new' %}" class="btn btn-primary">
             + Добавить проект
         </a>
     </h1>
-    {% for project in projects %}
-        <div style="margin-top: 10px;margin-bottom: 10px" class="card">
-            <div class="card-header">
-                <h5>{{ project.title }}</h5>
-            </div>
-            <div class="card-body">
-                {{ project.description }}
-                <br/>
-                <br/>
-                {% get_comment_count for project as comment_count %}
-                <p><img src="{% static 'img/comments.svg' %}"/> {{ comment_count }}</p>
-                <p>{% ratings project template_name='star_ratings/small_widget.html' read_only='True' %}</p>
-                <a href="{% url 'project_details' slug=project.slug %}" class="btn btn-primary">Подробности</a>
-            </div>
-        </div>
-    {% endfor %}
+<div>
+{% include 'projectlist_page.html' with projects=projects %}    
+</div>
+</div>
 {% endblock %}
 
 {% block jsfiles %}
 <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<script src="{% static 'el-pagination/js/el-pagination.js' %}"></script>
+<script>$.endlessPaginate();</script>
 {% endblock %}

@@ -117,7 +117,7 @@ def get_user(request, id):
         user = User.objects.get(pk=id)
         profile = Profile.objects.get(user=id)
         can_edit = (request.user.id == id)
-        context = { 'user': user, 'profile': profile, 'can_edit': can_edit }
+        context = { 'p_user': user, 'profile': profile, 'can_edit': can_edit }
         return render(request, 'profile.html', context)
 
     
