@@ -5,8 +5,17 @@
 {% load ratings %}
 {% load el_pagination_tags %}
 
+{% block meta %}
+<meta property="og:url"           content="{{ request.path }}" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="{{ project.title }}" />
+<meta property="og:description"   content="Стартап клуб: {{ project.title }}" />
+<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+{% endblock %}
+
 {% block cssfiles %}
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<link rel="stylesheet" href="{% static 'css/project-details.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -53,6 +62,10 @@
           <br/>
           <h5>Рейтинг</h5>
           {% ratings project template_name='star_ratings/big_widget.html' %}
+          <div class="social" style="border-top: 1px solid rgba(0,0,0,.125); margin-top: 10px; height: 20px;">
+            <div style="margin-top: 10px; margin-right: 10px;" id="vk_share_button"></div>
+            <div style="margin-top: 7px;" class="fb-share-button" data-href="{{ request.path }}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Поделиться</a></div>
+          </div>
         </div>
       </div>
       {% if user.is_authenticated %}
@@ -112,36 +125,18 @@
         {% show_pages %}
       </div>
       <!-- comments -->
-     <!--  <div style="margin-top: 5px;">
-          <div style="margin-top: 5px; margin-bottom: 5px;" class="card">
-            <div class="card-body">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                    <p class="text-secondary text-center">15 Minutes Ago</p>
-                  </div>
-                  <div class="col-md-10">
-                    <p>
-                        <a class="float-left" href="https://maniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman Akash</strong></a>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                          <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-
-                  </p>
-                  <div class="clearfix"></div>
-                    <p>{% lorem %}</p>
-                    <p>
-                      <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i>Ответить</a>
-                  </p>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 {% endblock %}
 
 {% block jsfiles %}
 <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+<script>
+  document.getElementById('vk_share_button').innerHTML = VK.Share.button(
+  {
+    url: '{{ request.path }}',
+    title: '{{ project.title }}',
+    image: 'http://mysite.com/mypic.jpg',
+    noparse: true
+  }, {type: 'button'}); 
+</script>
 {% endblock %}
