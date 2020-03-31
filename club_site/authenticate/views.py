@@ -45,7 +45,6 @@ def register_user(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             current_site = get_current_site(request)
             mail_subject = 'Активируйте ваш аккаунт в стартап клубе'

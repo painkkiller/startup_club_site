@@ -8,8 +8,7 @@ User = get_user_model()
 
 
 class EditUserForm(UserChangeForm):
-    password = ReadOnlyPasswordHashField(label=(""),
-        help_text=(""))
+    password = ReadOnlyPasswordHashField(label=(""), help_text=(""))
     first_name =  forms.CharField(label="Имя", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control',}))
     last_name =  forms.CharField(label="Фамилия", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control',}))
 
@@ -19,8 +18,7 @@ class EditUserForm(UserChangeForm):
 
     class Meta:
         model = User
-        #fields = ('first_name', 'last_name')
-        exclude = ('username', 'last_login', 'is_superuser', 'user_permissions', 'groups', 
+        exclude = ('last_login', 'is_superuser', 'user_permissions', 'groups', 
         'password1', 'password2', 'password', 'is_staff', 'is_active', 'date_joined', 'email')
 
 class EditProfileForm(forms.ModelForm):
@@ -40,15 +38,15 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        fields = ('first_name', 'last_name', 'email', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
 
-        self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['username'].widget.attrs['placeholder'] = 'Логин'
-        self.fields['username'].label = ''
-        self.fields['username'].help_text = ''
+        # self.fields['username'].widget.attrs['class'] = 'form-control'
+        # self.fields['username'].widget.attrs['placeholder'] = 'Логин'
+        # self.fields['username'].label = ''
+        # self.fields['username'].help_text = ''
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['placeholder'] = 'Пароль'
         self.fields['password1'].label = ''

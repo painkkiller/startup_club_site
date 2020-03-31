@@ -17,12 +17,13 @@
           <button type="submit" class="btn btn-primary">Войти</button>
   </form>
   <div style="margin-top: 20px; display: flex; justify-content: center;">
-    <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
-    
+    <button class="btn btn-primary mb-2">
+      <a style="color: white;" href="{% url 'social:begin' 'facebook' %}">Зайти с Facebook</a>
+    </button>
   </div>
   <div style="margin-top: 20px; display: flex; justify-content: center;">
     <div class="google">
-        <a class="btn btn-primary" href="{% url "social:begin" 'google-oauth2' %}">Login with Google</a>
+        <a class="btn btn-primary mb-2" href="{% url 'social:begin' 'google-oauth2' %}">Зайти с Google</a>
     </div>
   </div>
   <br/>

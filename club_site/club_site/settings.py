@@ -64,11 +64,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-""" AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend'
+AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
-] """
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 ROOT_URLCONF = 'club_site.urls'
 
@@ -176,6 +176,11 @@ LOGOUT_REDIRECT_URL = '/'
 
 #social auth
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_USER_FIELDS = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email, age_range',
+}
 
 SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY") # Facebook App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET") # Facebook App Secret
