@@ -1,8 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from django import forms
 
-from .forms import SignUpForm, EditUserForm
-from .models import User, Profile
+from django.contrib.auth import get_user_model
+from .models import Profile
+from .forms import SignUpForm
+
+User = get_user_model()
+
 
 
 class UserInline(admin.StackedInline):
@@ -12,7 +18,7 @@ class UserInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin):
     add_form = SignUpForm
-    form = EditUserForm
+    form = UserChangeForm
     model = User
     list_display = ('email', 'is_staff', 'is_active',)
     list_filter = ('email', 'is_staff', 'is_active',)
