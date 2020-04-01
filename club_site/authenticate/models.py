@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from .managers import UserManager
 
 
+
 class User(AbstractUser):
     """auth/login-related fields"""
     username = None
@@ -15,14 +16,14 @@ class User(AbstractUser):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return self.email 
     # Examples:
     # email (if used for login)
     # extra permissions
     # NOTE: before putting something here make sure it wouldn't be better in the profile model
     #class Meta:
-        #model = User
-        #fields = ['username', 'email', 'password', 'first_name', 'last_name']
+        # model = User
+        #fields = ['email', 'password', 'first_name', 'last_name']
 
 class Profile(models.Model):
     """profile fields"""

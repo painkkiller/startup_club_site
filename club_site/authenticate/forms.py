@@ -1,3 +1,5 @@
+import logging
+from django.utils.encoding import force_text
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
 from django import forms
 
@@ -5,6 +7,8 @@ from django.contrib.auth import get_user_model
 from .models import Profile
 
 User = get_user_model()
+
+logger = logging.getLogger(__name__)
 
 
 class EditUserForm(UserChangeForm):
@@ -32,12 +36,16 @@ class EditProfileForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите емайл'}))
-    first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}))
-    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}))
+    first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}), required=False)
+    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}), required=False)
     
+    def is_valid(self):
+        logger.info(force_text(self.errors))
+        return super(SignUpForm, self).is_valid()
 
     class Meta:
         model = User
+        exclude =('username',)
         fields = ('first_name', 'last_name', 'email', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
