@@ -46,7 +46,7 @@
           <div>
             <h5>Основатели:</h5>
             {% for founder in project.founders.all %}
-            <a href="{% url 'get_user' id=founder.id %}">{{ founder.username }}</a>
+            <a href="{% url 'get_user' id=founder.id %}">{{ founder.get_full_name }}</a>
             {% endfor %}
           </div>
           {% with vacancies=project.vacancies.all %}
@@ -112,7 +112,7 @@
                 </div>
                 <div class="col-md-10">
                   <p>
-                    <a class="float-left" href="{% url 'get_user' id=comment.user.id %}"><strong>{{ comment.user.username }}</strong></a>
+                    <a class="float-left" href="{% url 'get_user' id=comment.user.id %}"><strong>{{ comment.user.get_full_name }}</strong></a>
                   </p>
                     <div class="clearfix"></div>
                       <p>{{ comment.comment }}</p>

@@ -18,7 +18,13 @@
         </div>
         {% endif %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Добавить</button>
+        <button type="submit" class="btn btn-primary">
+            {% if not id %}
+            Добавить
+            {% else %}
+            Сохранить
+            {% endif %}
+        </button>
 </form> 
 </div>
 {% endblock %}

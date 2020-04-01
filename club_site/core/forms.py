@@ -44,7 +44,7 @@ class EditVacancyForm(forms.ModelForm):
         super(EditVacancyForm, self).__init__(*args, **kwargs)
         # print('--init--', [(project.id, project.title) for project in User.objects.get(pk=5).project_set.all()])
         self.fields['project'] = forms.ModelChoiceField(queryset=User.objects.get(pk=user.id).project_set.all(), empty_label=None, to_field_name="title", label="Проект", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
-        self.fields['author'] = forms.ModelChoiceField(queryset=User.objects.filter(pk = user.id), initial= User.objects.get(pk = user.id), to_field_name="username", label="Автор", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
+        self.fields['author'] = forms.ModelChoiceField(queryset=User.objects.filter(pk = user.id), initial= User.objects.get(pk = user.id), to_field_name="email", label="Автор", widget=forms.Select(attrs={'class': 'form-control',}), required=True)
 
     class Meta:
         model = Vacancy

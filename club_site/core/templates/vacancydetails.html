@@ -19,7 +19,7 @@
         <div class="card-body">
           <small>создан: {{ vacancy.created }}</small><br/>
           <small>обновлен: {{ vacancy.updated }}</small>
-          <p>Автор: <a href="{% url 'get_user' id=vacancy.author.id %}">{{ vacancy.author }}</a></p>
+          <p>Автор: <a href="{% url 'get_user' id=vacancy.author.id %}">{{ vacancy.author.get_full_name }}</a></p>
           <p>Проект: <a href="{% url 'project_details' slug=vacancy.project.slug %}">{{ vacancy.project }}</a></p>
           <p>Специальность: {{ vacancy.specialty }}</p>
           <p><b>{{ vacancy.body }}</b></p>
