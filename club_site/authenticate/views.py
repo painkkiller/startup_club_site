@@ -119,4 +119,5 @@ def get_user(request, id):
         context = { 'p_user': user, 'profile': profile, 'can_edit': can_edit }
         return render(request, 'profile.html', context)
 
+
     

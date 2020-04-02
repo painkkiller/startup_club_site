@@ -133,3 +133,12 @@ def mail_creation_helper(is_new, user, project, domain):
     mails = [ founder.email for founder in project.founders.all()]
     resp = mail_to_users(subject_mail, html_content= html_message, txt_content=txt_message, mails=mails)
     return resp
+
+def contacts(request):
+    if request.method == 'GET':
+        context = { }
+        return render(request, 'contacts.html')
+    else:
+        print('POST', request.POST)
+        messages.success(request, ('Ваше сообщение отправлено'))
+        return render(request, 'contacts.html')
