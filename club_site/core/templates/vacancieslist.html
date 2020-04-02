@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="col-md-10 offset-md-1">
-    <h1 style="margin-bottom: 40px">Вакансии
+    <h1 style="margin-bottom: 40px">Вакансии <span style="color: gray; font-size: 2rem;">{{ vacancies.count }}</span>
         <a style="float: right;" href="{% url 'vacancy_edit' id='0' %}" class="btn btn-primary">
             + Добавить вакансию
         </a>

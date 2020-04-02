@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from django.db.models.signals import post_save 
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from .managers import UserManager
 
@@ -39,8 +39,19 @@ class Profile(models.Model):
 """receivers to add a Profile for newly created users"""
 @receiver(post_save, sender=User) 
 def create_user_profile(sender, instance, created, **kwargs):
-     if created:
-         Profile.objects.create(user = instance)
-@receiver(post_save, sender=User) 
+    print('create_user_profile', created)
+    if created:
+        try:
+            Profile.objects.create(user = instance)
+        except Exception:
+            print('create profile error', Exception)
+    instance.profile.save()
+
+""" @receiver(post_save, sender=User) 
 def save_user_profile(sender, instance, **kwargs):
-     instance.profile.save()
+    print('save_user_profile')
+    try:
+        instance.profile.save()
+    except Exception:
+            print('save profile error', Exception)
+ """

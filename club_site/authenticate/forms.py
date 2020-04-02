@@ -36,12 +36,21 @@ class EditProfileForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите емайл'}))
-    first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}), required=False)
-    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}), required=False)
+    first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}))
+    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}))
     
     def is_valid(self):
         logger.info(force_text(self.errors))
         return super(SignUpForm, self).is_valid()
+    
+    """ def save(self, commit=True):
+        user = super(SignUpForm, self).save(commit=False)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user """
 
     class Meta:
         model = User
