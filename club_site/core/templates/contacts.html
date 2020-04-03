@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block cssfiles %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'css/contacts.css' %}"/>
+<noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}"/></noscript>
+{% endblock %}
+
+{% block content %}
+<h1>Контакты</h1>
+<p>
+Если вы хотите принять участие в работе нашего клуба, регистрируйтесь и заполняйте свой профиль. Если вы хотите сделать доклад, создавайте проект, заполняйте его и пишите админам.
+С админами можно связаться с помощью формы ниже, или написать в наш телеграмм чат.
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="c_container">
+    <section class="half">
+        <form id="contactform">
+            {% csrf_token %}
+            <div class="fields">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Имя" required/>
+                </div>
+                <div id="adress1" class="form-group">
+                    <label for="address">Адрес</label>
+                    <input type="text" class="form-control" name="adress" id="adress" placeholder="adress" required/>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="some@email.com" required/>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea class="form-control" name="message" id="message" rows="5"></textarea>
+                </div>
+            </div>
+            <div id="formtext" class="form_bottom"></div>
+            {% if user.is_authenticated %}
+            <button data-url="{% url 'contacts' %}" type="submit" id="submit" class="btn btn-primary">Отправить сообщение</button>
+            {% else %}
+            <p>Вы должны быть зарегистрированы и авторизованы на сайте, чтобы отправить сообщение</p>
+            {% endif %}
+        </form>
+    </section>
+    <section class="half">
+        <ul class="contact">
+                <li>
+                    <h3>Контакты</h3> <br/>
+                    Discord (канал #стартапы)<br/>
+                    <span style="font-size: 48px; color: Dodgerblue; vertical-align: middle;">
+                        <i class="fab fa-discord"></i>
+                    </span><span style="line-height: 48px; font-size: 17px"><a href="https://discord.gg/SA3ssYq">https://discord.gg/SA3ssYq</a></span><br/>
+                    Телеграм<br/>
+                    <span style="font-size: 48px; color: Dodgerblue; vertical-align: middle;">
+                        <i class="fab fa-telegram"></i>
+                    </span><span style="line-height: 48px; font-size: 17px"><a href="https://t.me/startup_club_moscow">https://t.me/startup_club_moscow</a></span><br/>
+                    Адрес<br/>
+                    <span>
+                        Москва, м. Трубная, 1-й Колобковский пер. 27/3, стр. 3.<br/> <a href="https://bearloga.work/?utm_source=startupclub&utm_medium=link&utm_campaign=add">Коворкинг Берлога.</a>
+                    </span>
+                </li>
+                <!-- <li>
+                    <h3>Email</h3>
+                    <a href="#">user@untitled.tld</a>
+                </li>
+                <li>
+                    <h3>Phone</h3>
+                    <span>(000) 000-0000</span>
+                </li>
+                <li>
+                    <h3>Social</h3>
+                    <ul class="icons">
+                        <li><a href="#" class="fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="fa-facebook"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="fa-github"><span class="label">GitHub</span></a></li>
+                        <li><a href="#" class="fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                    </ul>  -->
+                </li>
+            </ul>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block jsfiles %}
+<script src="{% static 'js/contacts.js' %}"></script>
+{% endblock %}

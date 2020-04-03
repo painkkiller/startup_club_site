@@ -5,8 +5,11 @@ from django.template.loader import render_to_string
 from .forms import EditProjectForm, EditVacancyForm
 from django.contrib.auth.decorators import login_required
 from .models import Project, Vacancy
-from .mailer import mail_to_users
 from django.utils.translation import activate
+from django.contrib.auth import get_user_model
+from .mailer import mail_to_users
+
+User = get_user_model()
 
 
 
@@ -136,9 +139,17 @@ def mail_creation_helper(is_new, user, project, domain):
 
 def contacts(request):
     if request.method == 'GET':
-        context = { }
         return render(request, 'contacts.html')
     else:
-        print('POST', request.POST)
-        messages.success(request, ('Ваше сообщение отправлено'))
+        mails = [ admin.email for admin in User.objects.filter(is_staff=True)]
+        txt_message = render_to_string('emails/messagetoadmins.txt', {
+            'name': request.POST['name'],
+            'email': request.POST['email'],
+            'message': request.POST['message']
+        })
+        resp = mail_to_users("Письмо в администрацию стартап клуба", html_content=None, txt_content=txt_message, mails=mails)
+        if resp == 1:
+            messages.success(request, ('Ваше сообщение отправлено'))
+        else:
+            messages.error(request, ('Ваше cообщение отправить не удалось, возникла какая то проблема на сервере'))
         return render(request, 'contacts.html')

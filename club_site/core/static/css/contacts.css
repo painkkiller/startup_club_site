@@ -1,0 +1,21 @@
+.c_container {
+    display: flex;
+    justify-content: start;
+}
+
+.half {
+    width: 50%;
+}
+
+.contact {
+    list-style-type: none;
+}
+
+.form_bottom {
+    margin-bottom: 20px;
+}
+
+.error {
+    border-color: red !important;
+    /* color: red; */
+}
