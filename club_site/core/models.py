@@ -51,9 +51,9 @@ class Project(models.Model):
     updated = models.DateTimeField(auto_now=True)
     founders = models.ManyToManyField(User)
     status = models.CharField(max_length=25, choices=PROJECT_STATUS_CHOICES, default='Идея')
-    site = models.URLField(max_length=255, null=True)
+    site = models.URLField(max_length=255, null=True, blank=True)
     preza = models.FileField(upload_to='projects/%Y/%m/', blank=True)
-    video_pitch = models.URLField(max_length=255, null=True)
+    video_pitch = models.URLField(max_length=255, null=True, blank=True)
     ratings = GenericRelation(Rating, related_query_name='projects')
 
     def __str__(self):
@@ -61,6 +61,10 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('project_details', kwargs={'slug': self.slug })
+    
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
 
 
 
@@ -97,6 +101,8 @@ class Post(models.Model):
         return reverse('post_details', kwargs={'slug': self.slug, 'post_type': self.post_type })
 
     class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
         ordering = ('-publish',)
 
         def __str__(self):
@@ -104,10 +110,6 @@ class Post(models.Model):
 
 
 class Vacancy(models.Model):
-    STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-    )
     title = models.CharField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vacancies')
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='vacancies')
@@ -118,6 +120,8 @@ class Vacancy(models.Model):
     vacancy_type = models.CharField(max_length=25, choices=VACANCY_TYPE_CHOICES, default='Зарплата')
 
     class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
         ordering = ('-created',)
 
         def __str__(self):

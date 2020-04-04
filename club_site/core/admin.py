@@ -1,8 +1,11 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Project, Vacancy
+from social_django.models import Association, Nonce, UserSocialAuth
 from star_ratings import get_star_ratings_rating_model
+from star_ratings.models import UserRating
 
-Rating = get_star_ratings_rating_model()
+Ratings = get_star_ratings_rating_model()
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -24,4 +27,26 @@ class PostAdmin(admin.ModelAdmin):
         return instance
 
 
-#admin.site.unregister(Rating)
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+    list_filter = ('created', )
+    search_fields = ('title', 'description')
+    prepopulated_fields = {'slug': ('title',)}
+    ordering = ('updated',)
+
+
+@admin.register(Vacancy)
+class VacancyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author')
+    list_filter = ('created', 'author')
+    search_fields = ('title', 'description')
+    ordering = ('updated',)
+
+
+
+admin.site.unregister(Association)
+admin.site.unregister(Nonce)
+admin.site.unregister(UserSocialAuth)
+admin.site.unregister(Ratings)
+admin.site.unregister(UserRating)

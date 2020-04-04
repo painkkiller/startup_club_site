@@ -43,14 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    "anymail",
-    'core',
-    'authenticate',
+    #additional
+    'anymail',
     'social_django',
     'django_extensions',
     'django_comments',
     'star_ratings',
-    'el_pagination'
+    'el_pagination',
+    # custom
+    'authenticate',
+    'core',
 ]
 
 MIDDLEWARE = [
