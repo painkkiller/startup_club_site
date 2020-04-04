@@ -4,7 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from .forms import EditProjectForm, EditVacancyForm
 from django.contrib.auth.decorators import login_required
-from .models import Project, Vacancy
+from .models import Project, Vacancy, Post
 from django.utils.translation import activate
 from django.contrib.auth import get_user_model
 from .mailer import mail_to_users
@@ -73,14 +73,11 @@ def vacancy_details(request, id):
     return render(request, 'vacancydetails.html', context)
 
 def vacancy_edit(request, id):
-    print('vacancy_edit', id)
     if request.method == 'POST':
-        print('vacancy_edit0', id, id == 0)
         if id == 0:
            form = EditVacancyForm(data=request.POST, user=request.user)
         else:
             vacancy = Vacancy.objects.get(pk=id)
-            print('vacancy_edit1', vacancy)
             form = EditVacancyForm(data=request.POST, user=request.user, instance=vacancy)
         if form.is_valid():
             vacancy = form.save()
@@ -153,3 +150,20 @@ def contacts(request):
         else:
             messages.error(request, ('Ваше cообщение отправить не удалось, возникла какая то проблема на сервере'))
         return render(request, 'contacts.html')
+
+def useful(request):
+    articles = Post.objects.filter(post_type='useful')
+    context = { 'articles': articles }
+    print(articles)
+    return render(request, 'usefullist.html', context)
+
+def post_details(request, post_type, slug):
+    post = Post.objects.get(slug=slug)
+    context = { 'post': post }
+    return render(request, 'postdetails.html', context)
+
+def news(request):
+    articles = Post.objects.filter(post_type='news')
+    context = { 'articles': articles }
+    print(articles)
+    return render(request, 'newslist.html', context)

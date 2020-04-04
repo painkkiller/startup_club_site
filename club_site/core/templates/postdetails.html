@@ -21,7 +21,7 @@
 {% block content %}
 <div class="col-md-10 offset-md-1">
     <div class="card">
-        <h5 class="card-header">{{ project.title }}
+        <h5 class="card-header">{{ post.title }}
           {% if can_edit %}
           <a style="float: right;" href="{% url 'project_edit' slug=project.slug %}" class="btn btn-primary">
             <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
@@ -30,49 +30,20 @@
           {% endif %}
         </h5>
         <div class="card-body">
-          <small>создан: {{ project.created }}</small><br/>
-          <small>обновлен: {{ project.updated }}</small>
-          <p>{{ project.description }}</p>
-          <p>Статус проекта: {{ project.status }}</p>
-          {% if project.site %}
-          <p>Сайт: <a href="{{ project.site }}">{{ project.site }}</a></p>
-          {% endif %}
-          {% if project.preza %}
-          <p><img style="margin-right: 30px" src="{% static 'img/presentation.png' %}"/><a href="{% get_media_prefix %}{{ project.preza }}">Презентация</a></p>
-          {% endif %}
-          {% if project.video_pitch %}
-          <p><img style="margin-right: 30px" src="{% static 'img/youtube.png' %}"/><a href="{{ project.video_pitch }}">Видео</a></p>
-          {% endif %}
-          <div>
-            <h5>Основатели:</h5>
-            {% for founder in project.founders.all %}
-            <a href="{% url 'get_user' id=founder.id %}">{{ founder.get_full_name }}</a>
-            {% endfor %}
-          </div>
-          {% with vacancies=project.vacancies.all %}
-          {% if vacancies %}
-          <div>
-            <h5>Вакансии</h5>
-            {% for vac in vacancies %}
-            <a href="{% url 'vacancy_details' id=vac.id %}">{{ vac.title }}</a>
-            {% endfor %}
-          </div>
-          {% endif %}
-          {% endwith %}
+          <small>создан: {{ post.created }}</small><br/>
+          <small>обновлен: {{ post.updated }}</small>
+          <p>{{ post.body }}</p>
           <br/>
-          <h5>Рейтинг</h5>
-          {% ratings project template_name='star_ratings/big_widget.html' %}
           <div class="social" style="border-top: 1px solid rgba(0,0,0,.125); margin-top: 10px; height: 20px;">
             <div style="margin-top: 10px; margin-right: 10px;" id="vk_share_button"></div>
             <div style="margin-top: 7px;" class="fb-share-button" data-href="{{ request.path }}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Поделиться</a></div>
           </div>
         </div>
       </div>
-      {% include "components/comments.html" with entity=project %}
+    {% include "components/comments.html" with entity=post %}
 {% endblock %}
 
 {% block jsfiles %}
-<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
 <script>
   document.getElementById('vk_share_button').innerHTML = VK.Share.button(

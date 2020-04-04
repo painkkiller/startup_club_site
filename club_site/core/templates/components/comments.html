@@ -1,0 +1,63 @@
+{% load static %}
+{% load avatar %}
+{% load comments %}
+{% load el_pagination_tags %}
+
+
+{% if user.is_authenticated %}
+          {% get_comment_form for entity as form %}
+          <div style="margin-top: 5px; margin-bottom: 5px;" class="card">
+            <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="{{ user|gravatar:117 }}" class="img rounded-circle img-fluid"/>
+                  </div>
+                  <div class="col-md-10">
+                      <form action="{% comment_form_target %}" method="POST">
+                      {% csrf_token %}
+                      {{ form.honeypot }}
+                      {{ form.content_type }}
+                      {{ form.object_pk }}
+                      {{ form.timestamp }}
+                      {{ form.security_hash }}
+                      <div class="clearfix"></div>
+                      {{ form.comment }}
+                      <p>
+                        <input type="hidden" name="next" value="{{ entity.get_absolute_url }}" />
+                        <br/>
+                        <input class="float-right btn btn-outline-primary ml-2" type="submit" value="Отправить" id="id_submit" />
+                      </p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+          {% else %}
+            <p></p>
+{% endif %}
+      {% get_comment_list for entity as comment_list %}
+      {% paginate comment_list %}
+      {% for comment in comment_list %}
+      <div style="margin-top: 5px;">
+        <div style="margin-top: 5px; margin-bottom: 5px;" class="card">
+          <div class="card-body">
+              <div class="row">
+                <div class="col-md-2">
+                  <img  src="{{ comment.user|gravatar:117 }}" class="img rounded-circle img-fluid"/>
+                  <p style="font-size: 12px;margin-top: 10px;" class="text-secondary text-center">{{ comment.submit_date|date:'d.m.Y H:i' }}</p>
+                </div>
+                <div class="col-md-10">
+                  <p>
+                    <a class="float-left" href="{% url 'get_user' id=comment.user.id %}"><strong>{{ comment.user.get_full_name }}</strong></a>
+                  </p>
+                    <div class="clearfix"></div>
+                      <p>{{ comment.comment }}</p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% show_pages %}
+      </div>
+      <!-- comments -->

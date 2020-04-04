@@ -16,4 +16,7 @@ urlpatterns = [
     path('vacancies/<int:id>/edit', views.vacancy_edit, name="vacancy_edit"),
     path('vacancies/<int:id>/delete', views.vacancy_delete, name="vacancy_delete"),
     path('contacts/', views.contacts, name="contacts"),
+    path('useful/', views.useful, name="useful"),
+    path('<str:post_type>/<slug:slug>/', views.post_details, name="post_details"),
+    path('news/', views.news, name="news"),
 ]

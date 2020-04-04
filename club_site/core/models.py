@@ -32,6 +32,17 @@ SPECIALTIES_TYPES = (
     ('Дизайнер', 'Дизайнер'),
 )
 
+TYPE_CHOICES = (
+    ('index', 'index'),
+    ('useful', 'useful'),
+    ('news', 'news'),
+)
+
+STATUS_CHOICES = (
+    ('draft', 'Draft'),
+    ('published', 'Published'),
+)
+
 class Project(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -49,7 +60,7 @@ class Project(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('project_detail', kwargs={'slug': self.slug})
+        return reverse('project_details', kwargs={'slug': self.slug })
 
 
 
@@ -68,11 +79,8 @@ class Project(models.Model):
         return 'Comment {}'.format(self.body) """
 
 class Post(models.Model):
-    STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-    )
     title = models.CharField(max_length=250)
+    post_type = models.CharField(max_length=25, choices=TYPE_CHOICES, default='news')
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
@@ -80,7 +88,14 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    
+    can_comment = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        print('get_absolute_url', self.slug, self.post_type)
+        return reverse('post_details', kwargs={'slug': self.slug, 'post_type': self.post_type })
 
     class Meta:
         ordering = ('-publish',)
