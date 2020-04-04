@@ -1,5 +1,15 @@
-body{
+html, body {
+    height: 100%;
     font-family: Arial, Helvetica, sans-serif !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.fl {
+    flex: 1 0 auto;
 }
 
 .usersnippet {
@@ -37,4 +47,12 @@ body{
 
 #id_honeypot {
     display: none;
+}
+
+.footer {
+    color: white !important;
+    padding: 10px !important;
+    height: 42px;
+    font-size: 12px;
+    flex-shrink: 0;
 }

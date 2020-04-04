@@ -11,7 +11,7 @@
         <h5>{{ post.title }}</h5>
     </div>
     <div class="card-body">
-        {{ post.body|truncatewords_html:60 }}
+        {{ post.body|safe|truncatewords_html:60 }}
         <br/>
         <br/>
         <a href="{% url 'post_details' slug=post.slug post_type=post.post_type %}" class="btn btn-primary">Далее</a>

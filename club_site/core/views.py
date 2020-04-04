@@ -14,7 +14,8 @@ User = get_user_model()
 
 
 def home(request):
-    return render(request, 'index.html')
+    post = Post.objects.get(slug='home')
+    return render(request, 'index.html', { 'home': post.body })
 
 def projects(request):
     #projects = Project.objects.all()

@@ -74,7 +74,7 @@
                 </div>
               </nav>
     <br/>
-    <div class="container">
+    <div class="container fl">
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-warning alert-dismissable" role="alert">
@@ -86,6 +86,9 @@
    {% block content %}
    {% endblock %}
     </div>
+     <footer class="bg-dark footer">
+      © Стартап клуб, {% now "Y" %}. Site is powered by <a style="color:white;" href="{% url 'get_user' id=1 %}">PainKiller</a>
+    </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
