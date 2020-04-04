@@ -79,22 +79,21 @@ class Project(models.Model):
         return 'Comment {}'.format(self.body) """
 
 class Post(models.Model):
-    title = models.CharField(max_length=250)
-    post_type = models.CharField(max_length=25, choices=TYPE_CHOICES, default='news')
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = models.TextField()
+    title = models.CharField(verbose_name='Титул', max_length=250, )
+    post_type = models.CharField(verbose_name='Тип', max_length=25, choices=TYPE_CHOICES, default='news')
+    slug = models.SlugField(verbose_name='ЧПУ', max_length=250, unique_for_date='publish')
+    author = models.ForeignKey(User, verbose_name='Автор', on_delete=models.CASCADE)
+    body = models.TextField(verbose_name='Тело')
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    can_comment = models.BooleanField(default=False)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, verbose_name='Статус', default='draft')
+    can_comment = models.BooleanField(default=False, verbose_name='Комментарии')
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        print('get_absolute_url', self.slug, self.post_type)
         return reverse('post_details', kwargs={'slug': self.slug, 'post_type': self.post_type })
 
     class Meta:

@@ -152,18 +152,19 @@ def contacts(request):
         return render(request, 'contacts.html')
 
 def useful(request):
-    articles = Post.objects.filter(post_type='useful')
-    context = { 'articles': articles }
-    print(articles)
+    posts = Post.objects.filter(post_type='useful')
+    context = { 'posts': posts }
+    print(posts)
     return render(request, 'usefullist.html', context)
 
 def post_details(request, post_type, slug):
     post = Post.objects.get(slug=slug)
+    print('post_details', post, post.can_comment)
     context = { 'post': post }
     return render(request, 'postdetails.html', context)
 
 def news(request):
-    articles = Post.objects.filter(post_type='news')
-    context = { 'articles': articles }
-    print(articles)
+    posts = Post.objects.filter(post_type='news')
+    context = { 'posts': posts }
+    print(posts)
     return render(request, 'newslist.html', context)

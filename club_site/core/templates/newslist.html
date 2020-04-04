@@ -5,16 +5,16 @@
 
 {% block content %}
 <h1>Новости</h1>
-{% for article in articles %}
+{% for post in posts %}
 <div style="margin-top: 10px;margin-bottom: 10px" class="card">
     <div class="card-header">
-        <h5>{{ article.title }}</h5>
+        <h5>{{ post.title }}</h5>
     </div>
     <div class="card-body">
-        ttttt
+        {{ post.body|truncatewords_html:60 }}
         <br/>
         <br/>
-        <a href="{% url 'post_details' slug=article.slug post_type=article.post_type %}" class="btn btn-primary">Подробности</a>
+        <a href="{% url 'post_details' slug=post.slug post_type=post.post_type %}" class="btn btn-primary">Далее</a>
     </div>
 </div>
 {% endfor %}

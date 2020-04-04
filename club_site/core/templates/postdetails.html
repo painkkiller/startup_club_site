@@ -22,12 +22,6 @@
 <div class="col-md-10 offset-md-1">
     <div class="card">
         <h5 class="card-header">{{ post.title }}
-          {% if can_edit %}
-          <a style="float: right;" href="{% url 'project_edit' slug=project.slug %}" class="btn btn-primary">
-            <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
-          </a>
-          
-          {% endif %}
         </h5>
         <div class="card-body">
           <small>создан: {{ post.created }}</small><br/>
@@ -40,7 +34,9 @@
           </div>
         </div>
       </div>
-    {% include "components/comments.html" with entity=post %}
+    {% if post.can_comment %}
+      {% include "components/comments.html" with entity=post %}
+    {% endif %}
 {% endblock %}
 
 {% block jsfiles %}
