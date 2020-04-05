@@ -41,6 +41,7 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите емайл'}))
     first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}))
     last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}))
+    phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите телефон'}), required = False)
     termsofuse = forms.BooleanField(label=mark_safe("Регистрируясь на сайте я соглашаюсь с его <a href='/auth/termsofuse/'>условиями использования</a>"), required = True, error_messages={'required': 'Вы должны быть согласны с условиями использования сайта'})
 
     def is_valid(self):

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block cssfiles %}
 <style>
@@ -35,4 +36,8 @@ label {
         <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form> 
 </div>
+{% endblock %}
+
+{% block jsfiles %}
+<script src="{% static 'js/register.js' %}"></script>
 {% endblock %}

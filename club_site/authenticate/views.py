@@ -40,6 +40,9 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == 'POST':
+        print('register_user', request.POST['phone'])
+        if request.POST['phone']:
+            redirect('home') # хлипкая защита от ботов
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
