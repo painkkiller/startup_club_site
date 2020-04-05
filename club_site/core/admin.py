@@ -50,3 +50,7 @@ admin.site.unregister(Nonce)
 admin.site.unregister(UserSocialAuth)
 admin.site.unregister(Ratings)
 admin.site.unregister(UserRating)
+
+admin.site.site_header = "Администрация стартап клуба"
+admin.site.site_title = "Администрация"
+admin.site.index_title = "Добро пожаловать в стартап клуб"

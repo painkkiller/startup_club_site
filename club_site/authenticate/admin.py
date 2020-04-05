@@ -18,6 +18,10 @@ class UserInline(admin.StackedInline):
     can_delete = True
     verbose_name = Profile
 
+    def save_model(self, request, obj, form, change):
+        print('save_model profile', request.POST, obj, form, change)
+        super().save_model(request, obj, form, change)    
+
 class CustomUserAdmin(UserAdmin):
     add_form = SignUpForm
     form = UserChangeForm
@@ -25,7 +29,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_active',)
     list_filter = ('email', 'first_name', 'last_name', 'is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('email', 'first_name', 'last_name' 'password1', 'password2')}),
+        (None, {'fields': ('email', 'first_name', 'last_name')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
@@ -37,6 +41,10 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     inlines = (UserInline, )
+
+    def save_model(self, request, obj, form, change):
+        print('save_model user', request.POST, obj, form, change)
+        super().save_model(request, obj, form, change)
 
 
 
