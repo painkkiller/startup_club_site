@@ -17,11 +17,10 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     ordering = ('status', 'publish')
 
-    def save_model(self, request, instance, form, change):
-        user = request.user 
+    def save_model(self, request, instance, form, change): 
         instance = form.save(commit=False)
         if not change or not instance.author:
-            instance.author = user
+            instance.author = request.user
         instance.save()
         form.save_m2m()
         return instance

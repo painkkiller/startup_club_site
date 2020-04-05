@@ -13,6 +13,7 @@ User = get_user_model()
 class EditProjectForm(forms.ModelForm):
     title =  forms.CharField(label="Название проекта", help_text="<small></small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}))
     description = forms.CharField(label="Описание", help_text="<small>краткое описание вашего проекта, не больше 2000 знаков</small>", max_length=2000, widget=forms.Textarea(attrs={'class': 'form-control',}))
+    needs = forms.CharField(label="Потребности проекта", help_text="<small>что нужно вашему проекту, не больше 1000 знаков</small>", max_length=1000, widget=forms.Textarea(attrs={'class': 'form-control',}))
     slug = forms.CharField(label="ЧПУ", help_text="<small>Человекочитаемый url для SEO, вида best-startup-ever</small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}))
     site = forms.CharField(label="Сайт", help_text="<small>сайт вашего проекта (если есть)</small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}), required=False)
     status = forms.ChoiceField(choices = PROJECT_STATUS_CHOICES, label="Стадия проекта", widget=forms.Select(attrs={'class': 'form-control',}), required=True)

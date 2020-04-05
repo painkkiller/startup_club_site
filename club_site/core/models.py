@@ -46,6 +46,7 @@ STATUS_CHOICES = (
 class Project(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    needs = models.TextField(null=True, blank=True)
     slug = models.SlugField(null=False, default='new', unique=True, )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
