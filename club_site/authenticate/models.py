@@ -37,9 +37,10 @@ class Profile(models.Model):
     # Bios, descriptions, taglines
     # Theme (light or dark)
     # email (if not used to log in)
-"""  def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         print('save profile', args, kwargs) # run 2 times, second with empty args, kwargs
-        print('save profile complete') """
+        super().save(*args, **kwargs)
+        print('save profile complete')
 
 """receivers to add a Profile for newly created users"""
 @receiver(post_save, sender=User) 
@@ -52,7 +53,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         except Exception as e:
             print('create profile error', e)
     else:
-        instance.profile.save()
+        instance.profile.save(**kwargs)
 
 """ @receiver(post_save, sender=User) 
 def save_user_profile(sender, instance, **kwargs):

@@ -16,7 +16,7 @@ User = get_user_model()
 class UserInline(admin.StackedInline):
     model = Profile
     can_delete = True
-    verbose_name = Profile
+    verbose_name = 'Профиль'
 
     def save_model(self, request, obj, form, change):
         print('save_model profile', request.POST, obj, form, change)
