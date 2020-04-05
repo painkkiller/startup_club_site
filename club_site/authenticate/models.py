@@ -30,6 +30,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.CharField(max_length=2000, blank=True)
     telegram = models.CharField(max_length=25, blank=True)
+    facebook = models.URLField(max_length=255, null=True, blank=True)
+    vk = models.URLField(max_length=255, null=True, blank=True)
     # Examples:
     # Display Name
     # Bios, descriptions, taglines

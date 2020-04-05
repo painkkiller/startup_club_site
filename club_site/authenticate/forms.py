@@ -28,10 +28,12 @@ class EditUserForm(UserChangeForm):
 class EditProfileForm(forms.ModelForm):
     about =  forms.CharField(label="Обо мне", help_text="<small>Расскажите о себе и своих компетенциях</small>", max_length=2000, widget=forms.Textarea(attrs={'class': 'form-control',}), required=False)
     telegram = forms.CharField(label="Телеграм", help_text="<small>Ваш логин в телеграме</small>", max_length=25, widget=forms.TextInput(attrs={'class': 'form-control',}), required=False)
+    facebook = forms.CharField(label="Фейсбук", help_text="<small>Ссылка на ваш профиль на facebook.com</small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}), required=False)
+    vk = forms.CharField(label="Вконтакте", help_text="<small>Ссылка на ваш профиль на vk.com</small>", max_length=255, widget=forms.TextInput(attrs={'class': 'form-control',}), required=False)
 
     class Meta:
         model = Profile
-        fields = ('about', 'telegram')
+        fields = ('about', 'telegram', 'facebook', 'vk')
 
 
 class SignUpForm(UserCreationForm):

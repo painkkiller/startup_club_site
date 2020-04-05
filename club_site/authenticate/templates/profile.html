@@ -31,6 +31,12 @@
                 {% if profile.telegram %}
                 <p><img style="width: 35px; height: 35px" src="{% static 'img/telegram.png' %}"/> @{{ profile.telegram }}</p>
                 {% endif %}
+                {% if profile.facebook %}
+                <p><img style="width: 35px; height: 35px" src="{% static 'img/facebook.png' %}"/> <a href="{{ profile.facebook }}">  Профиль в фейсбуке</a></p>
+                {% endif %}
+                {% if profile.vk %}
+                <a><img style="width: 35px; height: 35px" src="{% static 'img/vk.png' %}"/><a href="{{ profile.vk }}">  Профиль в контакте</a></p>
+                {% endif %}
                 {% with p_user.project_set.all as projects  %}
                 {% if projects %}
                 <h6>Проекты в которых участвует:</h6>
