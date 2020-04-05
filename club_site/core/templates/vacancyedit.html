@@ -3,7 +3,13 @@
 
 {% block content %}
 <div class="col-md-6 offset-md-3">
-<h1 class="text-center">Добавление вакансии</h1>
+<h1 class="text-center">
+    {% if not id %}
+    Добавление вакансии
+    {% else %}
+    Редактирование вакансии
+    {% endif %}
+</h1>
 <form method="POST" action="{% url 'vacancy_edit' id=id %}">
         {% csrf_token %}
         {% if form.errors %}
@@ -25,6 +31,7 @@
             Сохранить
             {% endif %}
         </button>
-</form> 
+</form>
+<br/>
 </div>
 {% endblock %}

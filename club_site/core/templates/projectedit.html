@@ -3,7 +3,13 @@
 
 {% block content %}
 <div class="col-md-6 offset-md-3">
-<h1 class="text-center">Добавление проекта</h1>
+<h1 class="text-center">
+    {% if slug == 'new' %}
+    Добавление проекта
+    {% else %}
+    Редактирование проекта
+    {% endif %}
+</h1>
 <form method="POST" action="{% url 'project_edit' slug=slug %}" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.errors %}
@@ -18,7 +24,14 @@
         </div>
         {% endif %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Добавить</button>
-</form> 
+        <button type="submit" class="btn btn-primary">
+            {% if slug == 'new' %}
+            Добавить
+            {% else %}
+            Сохранить
+            {% endif %}
+        </button>
+</form>
+<br/>
 </div>
 {% endblock %}
