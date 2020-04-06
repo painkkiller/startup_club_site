@@ -9,8 +9,8 @@
 <meta property="og:url"           content="{{ request.path }}" />
 <meta property="og:type"          content="website" />
 <meta property="og:title"         content="{{ project.title }}" />
-<meta property="og:description"   content="Стартап клуб: {{ project.title }}" />
-<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
+<meta property="og:description"   content="{{ project.description|truncatewords_html:60 }}" />
+<meta property="og:image"         content="{% static 'img/startup-club.png' %}" />
 {% endblock %}
 
 {% block cssfiles %}

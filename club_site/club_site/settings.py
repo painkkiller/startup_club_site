@@ -25,12 +25,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2swpz%=evq9)#8bb+x$7m@n7cw30ifw+!vk&5dbrj=fb%1yysb'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ['startup-club.tech', 'localhost', '127.0.0.1']
+
+ADMINS = (
+    ('Dmitry M', 'dmitry_malugin@hotmail.com'),
+)
 
 
 # Application definition
@@ -171,12 +175,15 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT ='/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 COMMENTS_APP = 'core'
+
+#SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT")
+#CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE")
 
 # mailgun integration
 ANYMAIL = {

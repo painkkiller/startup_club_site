@@ -18,6 +18,14 @@
 <link rel="stylesheet" href="{% static 'css/project-details.css' %}">
 {% endblock %}
 
+{% block meta %}
+<meta property="og:url"           content="{{ request.path }}" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="{{ project.title }}" />
+<meta property="og:description"   content="{{ project.description|truncatewords_html:60 }}" />
+<meta property="og:image"         content="{% static 'img/startup-club.png' %}" />
+{% endblock %}
+
 {% block content %}
 <div class="col-md-10 offset-md-1">
     <div class="card">
