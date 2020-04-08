@@ -42,20 +42,12 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите имя'}))
     last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите фамилию'}))
     phone = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите телефон'}), required = False)
-    termsofuse = forms.BooleanField(label=mark_safe("Регистрируясь на сайте я соглашаюсь с его <a href='/auth/termsofuse/'>условиями использования</a>"), required = True, error_messages={'required': 'Вы должны быть согласны с условиями использования сайта'})
+    termsofuse = forms.BooleanField(label=mark_safe("Регистрируясь на сайте я соглашаюсь с его <a href='/auth/termsofuse/'>условиями использования</a>"), error_messages={'required': 'Вы должны быть согласны с условиями использования сайта'})
 
     def is_valid(self):
         logger.info(force_text(self.errors))
         return super(SignUpForm, self).is_valid()
-    
-    """ def save(self, commit=True):
-        user = super(SignUpForm, self).save(commit=False)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user """
+
 
     class Meta:
         model = User
@@ -69,6 +61,7 @@ class SignUpForm(UserCreationForm):
         # self.fields['username'].widget.attrs['placeholder'] = 'Логин'
         # self.fields['username'].label = ''
         # self.fields['username'].help_text = ''
+        self.fields['termsofuse'].required = True
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['placeholder'] = 'Пароль'
         self.fields['password1'].label = ''
