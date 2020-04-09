@@ -9,7 +9,7 @@ from django_comments.models import Comment
 from django_comments.signals import comment_was_posted
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
-from .mailer import mail_to_users
+from utils.mailer import mail_to_users
 
 User = get_user_model()
 

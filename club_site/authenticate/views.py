@@ -12,7 +12,7 @@ from .forms import SignUpForm, EditUserForm, EditProfileForm
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from core.mailer import mail_to_users
+from utils.mailer import mail_to_users
 
 User = get_user_model()
 

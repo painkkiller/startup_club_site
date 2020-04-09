@@ -1,6 +1,8 @@
 .c_container {
     display: flex;
     justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .half {
@@ -19,3 +21,23 @@
     border-color: red !important;
     /* color: red; */
 }
+
+@media(max-width: 990px) {
+
+    .c_container {
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+    }
+
+    .contact {
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .half {
+        width: 100%;
+    }
+    
+}
+

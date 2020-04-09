@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Project, Vacancy, Post
 from django.utils.translation import activate
 from django.contrib.auth import get_user_model
-from .mailer import mail_to_users
+from utils.mailer import mail_to_users
 
 User = get_user_model()
 
