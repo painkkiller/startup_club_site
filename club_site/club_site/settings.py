@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['startup-club.tech', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['startup-club.tech', 'dev.startup-club.tech', 'localhost', '127.0.0.1', '0.0.0.0', '142.93.15.181' ]
 
 ADMINS = (
     ('Dmitry M', 'dmitry_malugin@hotmail.com'),
