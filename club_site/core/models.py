@@ -132,18 +132,20 @@ class Vacancy(models.Model):
 @receiver(comment_was_posted, sender=Comment)
 def notify_about_comment(sender, **kwargs):
     comment = kwargs.get('comment')
-    project = Project.objects.get(pk=comment.content_object.id)
-    subject_mail = 'Ваш проект прокомментировали'
-    emails = [founder.email for founder in project.founders.all()]
-    current_site = get_current_site(kwargs.get('request'))
-    html_message = render_to_string('emails/commentedproject.html', {
-        'domain': current_site.domain,
-        'project': project,
-        'comment': comment, 
-    })
-    txt_message = render_to_string('emails/commentedproject.txt', {
-        'domain': current_site.domain,
-        'project': project,
-        'comment': comment,
-    })
-    mail_to_users(subject_mail, html_message, txt_message, emails)   
+    url = comment.content_object.get_absolute_url()
+    if '/projects/' in url:
+        project = Project.objects.get(pk=comment.content_object.id)
+        subject_mail = 'Ваш проект прокомментировали'
+        emails = [founder.email for founder in project.founders.all()]
+        current_site = get_current_site(kwargs.get('request'))
+        html_message = render_to_string('emails/commentedproject.html', {
+            'domain': current_site.domain,
+            'project': project,
+            'comment': comment, 
+        })
+        txt_message = render_to_string('emails/commentedproject.txt', {
+            'domain': current_site.domain,
+            'project': project,
+            'comment': comment,
+        })
+        mail_to_users(subject_mail, html_message, txt_message, emails)
