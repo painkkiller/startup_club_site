@@ -5,14 +5,6 @@
 {% load ratings %}
 {% load el_pagination_tags %}
 
-{% block meta %}
-<meta property="og:url"           content="{{ request.path }}" />
-<meta property="og:type"          content="website" />
-<meta property="og:title"         content="{{ project.title }}" />
-<meta property="og:description"   content="Стартап клуб: {{ project.title }}" />
-<meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
-{% endblock %}
-
 {% block cssfiles %}
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 <link rel="stylesheet" href="{% static 'css/project-details.css' %}">
@@ -34,7 +26,7 @@
         <div class="card-body">
           <small>создан: {{ post.created }}</small><br/>
           <small>обновлен: {{ post.updated }}</small>
-          <p>{{ post.body }}</p>
+          <p>{{ post.body|safe }}</p>
           <br/>
           <div class="social" style="border-top: 1px solid rgba(0,0,0,.125); margin-top: 10px; height: 20px;">
             <div style="margin-top: 10px; margin-right: 10px;" id="vk_share_button"></div>
@@ -55,7 +47,7 @@
   {
     url: '{{ request.path }}',
     title: '{{ project.title }}',
-    image: 'http://mysite.com/mypic.jpg',
+    image: "{% static 'img/startup-club.png' %}",
     noparse: true
   }, {type: 'button'}); 
 </script>

@@ -21,7 +21,7 @@
 {% block content %}
 <div class="col-md-10 offset-md-1">
     <div class="card">
-        <h5 class="card-header">{{ project.title }}ttt
+        <h5 class="card-header">{{ project.title }}
           {% if can_edit %}
           <a style="float: right;" href="{% url 'project_edit' slug=project.slug %}" class="btn btn-primary">
             <img  style="color: white" src="{% static 'img/pencil.svg' %}"/>
