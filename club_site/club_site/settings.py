@@ -36,6 +36,8 @@ ADMINS = (
     ('Dmitry M', 'dmitry_malugin@hotmail.com'),
 )
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 
 # Application definition
 
