@@ -6,7 +6,7 @@
 {% load el_pagination_tags %}
 
 {% block meta %}
-<meta property="og:url"           content="{{ request.path }}" />
+<meta property="og:url"           content="{{ request.build_absolute_uri }}" />
 <meta property="og:type"          content="website" />
 <meta property="og:title"         content="{{ project.title }}" />
 <meta property="og:description"   content="{{ project.description|truncatewords_html:60 }}" />
@@ -80,9 +80,9 @@
 <script>
   document.getElementById('vk_share_button').innerHTML = VK.Share.button(
   {
-    url: '{{ request.path }}',
+    url: '{{ request.build_absolute_uri }}',
     title: '{{ project.title }}',
-    image: 'http://mysite.com/mypic.jpg',
+    image: "{% static 'img/startup-club.png' %}",
     noparse: true
   }, {type: 'button'}); 
 </script>
