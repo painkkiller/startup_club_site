@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col-md-2">
-                    <img src="{{ user|gravatar:117 }}" class="img rounded-circle img-fluid"/>
+                    <img src="{{ user|gravatar:117 }}" class="img rounded-circle img-fluid img-mobile"/>
                   </div>
                   <div class="col-md-10">
                       <form action="{% comment_form_target %}" method="POST">
@@ -43,15 +43,15 @@
           <div class="card-body">
               <div class="row">
                 <div class="col-md-2">
-                  <img  src="{{ comment.user|gravatar:117 }}" class="img rounded-circle img-fluid"/>
+                  <img  src="{{ comment.user|gravatar:117 }}" class="img rounded-circle img-fluid img-mobile"/>
                   <p style="font-size: 12px;margin-top: 10px;" class="text-secondary text-center">{{ comment.submit_date|date:'d.m.Y H:i' }}</p>
                 </div>
                 <div class="col-md-10">
-                  <p>
+                  <p class="mobile-center">
                     <a class="float-left" href="{% url 'get_user' id=comment.user.id %}"><strong>{{ comment.user.get_full_name }}</strong></a>
                   </p>
                     <div class="clearfix"></div>
-                      <p>{{ comment.comment }}</p>
+                      <p class="mobile-center">{{ comment.comment }}</p>
                   </div>
               </div>
             </div>

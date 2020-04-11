@@ -11,7 +11,7 @@
         <h5>{{ project.title }}</h5>
     </div>
     <div class="card-body">
-        {{ project.description }}
+        {{ project.description|truncatewords_html:60 }}
         <br/>
         <br/>
         {% get_comment_count for project as comment_count %}

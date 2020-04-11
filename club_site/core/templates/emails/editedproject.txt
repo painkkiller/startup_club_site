@@ -1,5 +1,5 @@
 {% autoescape off %}
-Привет {{ user.username }}!
-Вы, или возможно кто то другой из основателей, отредактировали проект http://{{ domain }}{% url 'project_details' slug=project.slug %}.
+Привет!
+Вы, кто то другой из основателей, или администрация стартап клуба, отредактировали проект http://{{ domain }}{% url 'project_details' slug=project.slug %}.
 Если это письмо получено по ошибке, свяжитесь с администацией стартап клуба.
 {% endautoescape %}
