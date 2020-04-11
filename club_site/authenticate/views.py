@@ -42,7 +42,7 @@ def register_user(request):
     if request.method == 'POST':
         phone = request.POST.get('phone', '')
         if phone:
-            redirect('home') # хлипкая защита от ботов
+            return redirect('home') # хлипкая защита от ботов
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -92,7 +92,7 @@ def edit_profile(request, id):
     context = { 'userForm': userForm, 'profileForm': profileForm }
     return render(request, 'profileedit.html', context)
 
-def activate_user(request, uidb64, token):
+def activate_user(request, uidb64, token, backend='django.contrib.auth.backends.ModelBackend'):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -101,10 +101,10 @@ def activate_user(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        login(request, user, backend)
+        return HttpResponse('Спасибо за подтверждение email вашего аккаунта. Теперь вы можете залогиниться на сайт стартап клуба')
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Ссылка активации уже была использована или не валидна')
 
 def get_users(request):
     User = get_user_model()

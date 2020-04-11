@@ -39,6 +39,10 @@ class Profile(models.Model):
     # email (if not used to log in)
     def __str__(self):
         return self.user.__str__()
+    
+    class Meta:
+        verbose_name = "Профиль"
+        verbose_name_plural = "Профили"
 
 
 """receivers to add a Profile for newly created users"""

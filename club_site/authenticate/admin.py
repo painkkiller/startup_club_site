@@ -19,7 +19,6 @@ class SignUpAdminForm(SignUpForm):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    verbose_name = "Профиль"
     readonly_fields = ["user"]
     search_fields = ('user',)
 
