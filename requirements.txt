@@ -34,7 +34,7 @@ social-auth-core==3.3.0
 sqlparse==0.3.1
 swapper==1.1.2.post1
 Unidecode==1.1.1
-urllib3==1.25.8
+urllib3==1.26.5
 Werkzeug==1.0.0
 
 
